@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 16:22:22 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/27 14:31:22 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 13:42:40 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_s_objects(t_env *env)
 		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/objectsnp.bmp");
 	else if (env->set.obj[0] != env->obj)
 		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/objectsp.bmp");
-	else if (env->parse.objects - env->set.nb[0] > 6 && env->set.obj[0] == env->obj)
+	else if (env->parse.objects - env->set.nb[0] > 6 && env->set.obj[0] \
+			== env->obj)
 		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/objectsn.bmp");
 	else
 		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/objects.bmp");
@@ -63,12 +64,17 @@ void	ft_text_objects(t_env *env)
 		env->set.obj[1] = env->set.obj[1]->next;
 		i++;
 	}
+	ft_text_objects2(env, &name);
+}
+
+void	ft_text_objects2(t_env *env, char **name)
+{
 	if (env->set.block == 0)
 	{
 		env->set.nb[2] = env->set.nb[1];
 		env->set.obj[2] = env->set.obj[1];
 	}
-	free(name);
+	free(*name);
 }
 
 void	ft_copy_text_obj(t_env *env)

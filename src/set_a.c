@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:13:30 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/27 14:09:33 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 13:21:45 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_copy_text_at(t_env *env, int i)
 {
 	if ((env->sdl.tset[TTEXT] = SDL_CreateTextureFromSurface(env->sdl.rend, \
 			env->sdl.text)) == NULL)
-		ft_error_sdl();	
+		ft_error_sdl();
 	SDL_QueryTexture(env->sdl.tset[TTEXT], NULL, NULL, &env->sdl.rset[DTEXT].w\
 		, &env->sdl.rset[DTEXT].h);
 	env->sdl.rset[DTEXT].x = ((WIDTHS / 2) - (env->sdl.rset[DTEXT].w / 2));

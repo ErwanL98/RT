@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:06:40 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/22 18:09:57 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:17:57 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ void	ft_parse_color(t_env *env, int i)
 		if (ft_strequ(env->parse.split[i], "green") && (i + 2) \
 				<= env->parse.tablen)
 			env->tmp.color.green = ft_atoi(env->parse.split[i + 2]);
+		i++;
+	}
+}
+
+void	ft_arse_fiished(t_env *env)
+{
+	while (env->parse.split[i])
+	{
+		if (ft_strequ(env->parse.split[i], "min") && (i + 2) <= \
+				env->parse.tablen)
+			env->tmp.fin[0] = ft_atoi(env->parse.split[i + 2]);
+		if (ft_strequ(env->parse.split[i], "max") && (i + 2) <= \
+				env->parse.tablen)
+			env->tmp.fin[1] = ft_atoi(env->parse.split[i + 2]);
 		i++;
 	}
 }

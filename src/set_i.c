@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 14:59:00 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/26 16:49:34 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 13:38:26 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void    ft_interface(t_env *env)
+void	ft_interface(t_env *env)
 {
 	if ((env->sdl.tset[TINTER] = SDL_CreateTexture(env->sdl.rend, \
 			SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTHS, \
@@ -43,13 +43,13 @@ void	ft_text_interface(t_env *env, int text)
 	env->set.pos = (env->set.pos == 100) ? 0 : env->set.pos + 100;
 }
 
-void    ft_text_cases_interface(t_env *env, int text)
+void	ft_text_cases_interface(t_env *env, int text)
 {
 	if (text == 1)
 	{
-			if ((env->sdl.text = TTF_RenderText_Blended(env->sdl.font, \
-					"Objects", env->set.color[(env->set.select == 1) ? 1 : 0]))\
-					== NULL)
+		if ((env->sdl.text = TTF_RenderText_Blended(env->sdl.font, \
+				"Objects", env->set.color[(env->set.select == 1) ? 1 : 0]))\
+				== NULL)
 			ft_error_sdl();
 	}
 	if (text == 2)
@@ -59,12 +59,13 @@ void    ft_text_cases_interface(t_env *env, int text)
 			ft_error_sdl();
 	}
 }
+
 void	ft_ev_inter(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
-			env->set.select = (env->set.select == 2) ? 1 : 2;
+		env->set.select = (env->set.select == 2) ? 1 : 2;
 	if (env->sdl.event.key.keysym.sym == SDLK_UP)
-			env->set.select = (env->set.select == 2) ? 1 : 2;
+		env->set.select = (env->set.select == 2) ? 1 : 2;
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
 	{
 		env->set.tab = (env->set.select == 1) ? OBJECTS : LIGHTS;

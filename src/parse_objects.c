@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/27 13:07:58 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:34:15 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,24 @@ void	ft_parse_objects(t_env *env)
 	else if (ft_strequ(env->parse.split[0], "reflexion") && 2 <= \
 			env->parse.tablen)
 		env->tmp.ref = ft_atoi(env->parse.split[2]);
+	else if (ft_strequ(env->parse.split[0], "finished"))
+	{
+		ft_is_finished(env);
+		ft_parse_finish(env, i);
+	}
+}
+
+void	ft_is_finished(t_env *env)
+{
+	env->tmp.finished = 1;
+	if (env->parse.type_obj == CONE)
+		env->parse.type_obj = FCONE;
+	if (env->parse.type_obj == SPHERE)
+		env->parse.type_obj = FSPHERE;
+	if (env->parse.type_obj == PLANE)
+		env->parse.type_obj = FPLANE;
+	if (env->parse.type_obj == CYL)
+		env->parse.type_obj = FCYL;
 }
 
 void	ft_parse_tiles(t_env *env, int i)

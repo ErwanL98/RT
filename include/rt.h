@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/27 14:32:17 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/11 14:36:40 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@
 # define XINDENT VIEWPLANEW / (double)WIDTHR
 # define YINDENT VIEWPLANEH / (double)HEIGHT
 
-enum {SPHERE = 1, PLANE = 2, CYL = 3, CONE = 4, PARA = 5, ELL = 6};
+enum {SPHERE = 1, PLANE = 2, CYL = 3, CONE = 4, FSPHERE = 5, FPLANE = 6, \
+	FCYL = 7, FONE = 8};
 enum {OBJ = 1, LIGHT = 2, CAM = 3};
 enum {BASIC = 1, SPOT = 2, POINT = 3};
 enum {TILE = 1, PERL = 2, MAP = 3};
 enum {TIMG, TINTER, TTEXT};
 enum {SIMG, STEXT};
 enum {DTEXT, DINTER};
-enum {INTERFACE, OBJECTS, LIGHTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB};
+enum {MIN, MAX};
+enum {INTERFACE, OBJECTS, LIGHTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB};
 
 typedef struct		s_vecti
 {
@@ -100,6 +102,8 @@ typedef struct		s_obj
 	t_color			tile;
 	int				tex;
 	int				ref;
+	int				fin[2];
+	int				finished;
 }					t_obj;
 
 typedef struct		s_set
@@ -135,6 +139,8 @@ typedef struct		s_tmp
 	t_color			tile;
 	int				tex;
 	int				ref;
+	int				fin[2];
+	int				finished;
 }					t_tmp;
 
 typedef struct		s_light
@@ -277,6 +283,7 @@ void				ft_event(t_env *env);
 void				ft_check_obj_types2(t_env *env);
 void				ft_s_objects(t_env *env);
 void				ft_text_objects(t_env *env);
+void				ft_text_objects2(t_env *env, char **name);
 void				ft_copy_text_obj(t_env *env);
 void				ft_ev_inter(t_env *env);
 void				ft_ev_obj(t_env *env);
@@ -291,15 +298,41 @@ void				ft_stock_elem(t_env *env);
 void				ft_undelete(t_env *env);
 void				ft_pos_tab(t_env *env);
 void				ft_pos_text(t_env *env);
+void				ft_pos_text2(t_env *env, int i, char **name);
 void				ft_copy_pos_text(t_env *env, int i);
 void				ft_ev_pos(t_env *env);
 void				ft_ev_dir(t_env *env);
 void				ft_dir_tab(t_env *env);
 void				ft_dir_text(t_env *env);
+void				ft_dir_text2(t_env *env, int i, char **name);
 void				ft_copy_dir_text(t_env *env, int i);
 void				ft_ev_col(t_env *env);
 void				ft_col_tab(t_env *env);
 void				ft_col_text(t_env *env);
+void				ft_col_text2(t_env *env, int i, char **name);
 void				ft_copy_col_text(t_env *env, int i);
+void				ft_ev_col_rl(t_env *env);
+void				ft_ev_col_dub(t_env *env);
+void				ft_ev_col_return1(t_env *env);
+void				ft_ev_col_return2(t_env *env);
+void				ft_ev_col_return3(t_env *env);
+void				ft_ev_pos_rl(t_env *env);
+void				ft_ev_pos_dub(t_env *env);
+void				ft_ev_pos_return1(t_env *env);
+void				ft_ev_pos_return2(t_env *env);
+void				ft_ev_dir_rl(t_env *env);
+void				ft_ev_dir_dub(t_env *env);
+void				ft_ev_dir_return1(t_env *env);
+void				ft_ev_dir_return2(t_env *env);
+void				ft_ev_obj_duret(t_env *env);
+void				ft_ev_obj_rb(t_env *env);
+void				ft_ev_obj_l(t_env *env);
+void				ft_ev_obj_u(t_env *env);
+void				ft_ev_at_dub(t_env *env);
+void				ft_ev_at_return1(t_env *env);
+void				ft_ev_at_return2(t_env *env);
+void				ft_ev_at_return3(t_env *env);
+void				ft_parse_finish(t_env *env, int i);
+void				ft_is_finish(t_env *env);
 
 #endif
