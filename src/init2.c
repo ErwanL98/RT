@@ -32,6 +32,8 @@ void	ft_init_set(t_env *env)
 {
 	env->set.tab = INTERFACE;
 	env->set.select = 1;
+	env->set.del = 0; 
+	env->set.inc = 1; 
 	env->set.nb[0] = 0;
 	env->set.nb[1] = 0;
 	env->set.nb[2] = 0;

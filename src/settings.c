@@ -20,4 +20,10 @@ void	ft_settings(t_env *env)
 		ft_s_objects(env);
 	else if (env->set.tab == ATTRIBUTES)
 		ft_attributes(env);
+	else if (env->set.tab == POSTAB)
+		ft_pos_tab(env);
+	else if (env->set.tab == DIRTAB)
+		ft_dir_tab(env);
+	else if (env->set.tab == COLTAB)
+		ft_col_tab(env);
 }

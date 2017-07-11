@@ -59,3 +59,19 @@ void    ft_text_cases_interface(t_env *env, int text)
 			ft_error_sdl();
 	}
 }
+void	ft_ev_inter(t_env *env)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
+			env->set.select = (env->set.select == 2) ? 1 : 2;
+	if (env->sdl.event.key.keysym.sym == SDLK_UP)
+			env->set.select = (env->set.select == 2) ? 1 : 2;
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	{
+		env->set.tab = (env->set.select == 1) ? OBJECTS : LIGHTS;
+		env->set.select = 1;
+		env->set.pos = 0;
+		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 30)) == NULL)
+			ft_error_sdl();
+		SDL_DestroyTexture(env->sdl.tset[TINTER]);
+	}
+}

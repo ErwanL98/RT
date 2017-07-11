@@ -40,7 +40,7 @@ enum {TILE = 1, PERL = 2, MAP = 3};
 enum {TIMG, TINTER, TTEXT};
 enum {SIMG, STEXT};
 enum {DTEXT, DINTER};
-enum {INTERFACE, OBJECTS, LIGHTS, ATTRIBUTES};
+enum {INTERFACE, OBJECTS, LIGHTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB};
 
 typedef struct		s_vecti
 {
@@ -109,10 +109,12 @@ typedef struct		s_set
 	t_obj			*obj[4];
 	int				pos;
 	int				nb[3];
+	int				inc;
 	int				at;
 	int				block;
 	int				select;
 	int				id_o;
+	int				del;
 	SDL_Color		color[2];
 }					t_set;
 
@@ -121,6 +123,8 @@ typedef struct		s_tmp
 	t_vect			pos;
 	t_vect			angles;
 	int				radius;
+	int			type;
+	int			id_o;
 	t_color			color;
 	int				angle;
 	double			solution;
@@ -283,5 +287,19 @@ void				ft_ev_at(t_env *env);
 void				ft_add_elem_obj(t_env *env);
 void				ft_delete_elem_obj(t_env *env);
 void				ft_init_draw(t_env *env);
+void				ft_stock_elem(t_env *env);
+void				ft_undelete(t_env *env);
+void				ft_pos_tab(t_env *env);
+void				ft_pos_text(t_env *env);
+void				ft_copy_pos_text(t_env *env, int i);
+void				ft_ev_pos(t_env *env);
+void				ft_ev_dir(t_env *env);
+void				ft_dir_tab(t_env *env);
+void				ft_dir_text(t_env *env);
+void				ft_copy_dir_text(t_env *env, int i);
+void				ft_ev_col(t_env *env);
+void				ft_col_tab(t_env *env);
+void				ft_col_text(t_env *env);
+void				ft_copy_col_text(t_env *env, int i);
 
 #endif

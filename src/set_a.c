@@ -40,8 +40,8 @@ void	ft_at_text1(t_env *env)
 		name = (i == 2) ? ft_strdup("Delete") : name;
 		name = (i == 3) ? ft_strdup("Position") : name;
 		name = (i == 4) ? ft_strdup("Direction") : name;
-		name = (i == 5) ? ft_strdup("Radius") : name;
-		name = (i == 6) ? ft_strdup("Angle") : name;
+		name = (i == 5) ? ft_strdup("Color") : name;
+		name = (i == 6) ? ft_strdup("Base") : name;
 		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_text_at(env, i);

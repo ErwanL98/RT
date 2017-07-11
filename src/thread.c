@@ -18,6 +18,7 @@ void	ft_browse_pixels(t_env *env)
 
 	ft_init_draw(env);
 	ft_init_start(env);
+	ft_calc_angles(env);
 	SDL_SetRenderTarget(env->sdl.rend, env->sdl.draw);
 	SDL_RenderClear(env->sdl.rend);
 	SDL_SetRenderTarget(env->sdl.rend, NULL);
