@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 14:36:40 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/12 16:42:42 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # define XINDENT VIEWPLANEW / (double)WIDTHR
 # define YINDENT VIEWPLANEH / (double)HEIGHT
 
-enum {SPHERE = 1, PLANE = 2, CYL = 3, CONE = 4, FSPHERE = 5, FPLANE = 6, \
-	FCYL = 7, FONE = 8};
+enum {SPHERE = 1, PLANE = 2, CYL = 3, CONE = 4, PARA = 5, ELL = 6};
 enum {OBJ = 1, LIGHT = 2, CAM = 3};
 enum {BASIC = 1, SPOT = 2, POINT = 3};
 enum {TILE = 1, PERL = 2, MAP = 3};
@@ -332,7 +331,13 @@ void				ft_ev_at_dub(t_env *env);
 void				ft_ev_at_return1(t_env *env);
 void				ft_ev_at_return2(t_env *env);
 void				ft_ev_at_return3(t_env *env);
-void				ft_parse_finish(t_env *env, int i);
-void				ft_is_finish(t_env *env);
+void				ft_parse_finished(t_env *env, int i);
+void				ft_base_tab(t_env *env);
+void				ft_base_text(t_env *env);
+void				ft_copy_base_text(t_env *env, int i, int max);
+void				ft_ev_base(t_env *env);
+void				ft_ev_base_rlb(t_env *env);
+void				ft_ev_base_down(t_env *env, int *test);
+void				ft_ev_base_up(t_env *env, int *test);
 
 #endif

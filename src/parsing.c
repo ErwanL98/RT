@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:06:40 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 14:17:57 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/12 11:14:15 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_parse_color(t_env *env, int i)
 	}
 }
 
-void	ft_arse_fiished(t_env *env)
+void	ft_parse_finished(t_env *env, int i)
 {
 	while (env->parse.split[i])
 	{

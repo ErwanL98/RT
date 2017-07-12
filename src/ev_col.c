@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 10:51:53 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 11:07:38 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/12 14:05:59 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,8 @@
 
 void	ft_ev_col_rl(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_RIGHT)
-	{
-		if (env->set.select == 2 || env->set.select == 3 || \
-				env->set.select == 5 || env->set.select == 6 || \
-				env->set.select == 8 || env->set.select == 9 || \
-				env->set.select == 11 || env->set.select == 12)
-			env->set.select = (env->set.select == 2 || \
-					env->set.select == 5 || env->set.select == 8 || \
-					env->set.select == 11) ? env->set.select + 1 \
-					: env->set.select - 1;
-	}
-	if (env->sdl.event.key.keysym.sym == SDLK_LEFT)
+	if (env->sdl.event.key.keysym.sym == SDLK_RIGHT || \
+			env->sdl.event.key.keysym.sym == SDLK_LEFT)
 	{
 		if (env->set.select == 2 || env->set.select == 3 || \
 				env->set.select == 5 || env->set.select == 6 || \

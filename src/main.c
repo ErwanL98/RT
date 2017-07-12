@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/06/27 14:30:51 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/12 11:35:08 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int ac, char **av)
 		ft_init_set(&env);
 		ft_calc_angles(&env);
 		ft_settings(&env);
-	/*	while (env.obj)
+		/*while (env.obj)
 		{
 			printf("obj %d type :%d\n", i, env.obj->type);
 			printf("obj %d tex :%d\n", i, env.obj->tex);
@@ -41,6 +41,8 @@ int		main(int ac, char **av)
 			printf("obj %d tile red %d green %d blue %d, w %d\n", i, \
 			env.obj->tile.red, env.obj->tile.green, env.obj->tile.blue, \
 			env.obj->tile.w);
+			printf("obj %d finished %d\n", i, env.obj->finished);
+			printf("obj %d min %d max %d\n", i, env.obj->fin[0], env.obj->fin[1]);
 			i++;
 			env.obj = env.obj->next;
 		}*/

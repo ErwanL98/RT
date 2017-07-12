@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:07:16 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 13:48:01 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/12 13:06:13 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_ev_at_return1(t_env *env)
 			else if (env->set.select == 2)
 				ft_ev_at_return2(env);
 			else if (env->set.select == 3 || env->set.select == 4 || \
-					env->set.select == 5)
+					env->set.select == 5 || env->set.select == 6)
 				ft_ev_at_return3(env);
 		}
 	}
@@ -83,6 +83,11 @@ void	ft_ev_at_return3(t_env *env)
 	else if (env->set.select == 5)
 	{
 		env->set.tab = COLTAB;
+		env->set.select = 2;
+	}
+	else if (env->set.select == 6)
+	{
+		env->set.tab = BASETAB;
 		env->set.select = 2;
 	}
 }

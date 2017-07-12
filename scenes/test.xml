@@ -10,6 +10,7 @@
 		<tiles red = "255" green = "9" blue = "248" w = "6" />
 		<angles x = "0" y = "0" z = "0" />
 		<color red = "255" green = "0" blue = "150" />
+		<finished min = "50" max = "200" />
 	</cylinder>
 	<plane>
 		<angles x = "0" y = "0" z = "0" h = "1" />

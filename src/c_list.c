@@ -29,6 +29,9 @@ void	ft_add_elem_obj(t_env *env)
 	obj->tile.blue =env->set.obj[3]->tile.blue;
 	obj->tile.w = env->set.obj[3]->tile.w;
 	obj->ref = env->set.obj[3]->ref;
+	obj->finished = env->set.obj[3]->finished;
+	obj->fin[0] = env->set.obj[3]->fin[0];
+	obj->fin[1] = env->set.obj[3]->fin[1];
 	obj->next = NULL;
 	obj->prev = tmp;
 	tmp->next = obj;
@@ -98,6 +101,9 @@ void	ft_stock_elem(t_env *env)
 	env->tmp.ref = env->set.obj[3]->ref;
 	env->tmp.angle = env->set.obj[3]->angle;
 	env->tmp.radius = env->set.obj[3]->radius;
+	env->tmp.finished = env->set.obj[3]->finished;
+	env->tmp.fin[0] = env->set.obj[3]->fin[0];
+	env->tmp.fin[1] = env->set.obj[3]->fin[1];
 	env->tmp.id_o = env->set.id_o;
 }
 
@@ -129,6 +135,9 @@ void	ft_undelete(t_env *env)
 	new->tex = env->tmp.tex;
 	new->angle = env->tmp.angle;
 	new->radius = env->tmp.radius;
+	new->finished = env->tmp.finished;
+	new->fin[0] = env->tmp.fin[0];
+	new->fin[1] = env->tmp.fin[1];
 	start = env->obj;
 	if ((env->tmp.id_o - 1) == env->parse.objects)
 	{
