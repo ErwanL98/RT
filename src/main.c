@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 11:35:08 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/18 11:15:23 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		main(int ac, char **av)
 		ft_parse(&env, av[1]);
 		ft_init_sdl(&env);
 		ft_init_set(&env);
-		ft_calc_angles(&env);
 		ft_settings(&env);
 		/*while (env.obj)
 		{

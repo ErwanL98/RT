@@ -6,7 +6,7 @@
 /*   By: mawasche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 14:31:31 by mawasche          #+#    #+#             */
-/*   Updated: 2017/06/21 11:12:30 by mawasche         ###   ########.fr       */
+/*   Updated: 2017/07/18 10:56:05 by mawasche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_shadow(t_env *env)
 		{
 			ft_calc[env->obj->type - 1](env, test,\
 					env->light->solution_point);
-			if (env->calc.solution > 0.001 && env->tmp.i != i)
+			if (env->calc.solution > 0.0001 && env->tmp.i != i)
 			{
 				solution.x = env->calc.solution * test.x;
 				solution.y = env->calc.solution * test.y;
