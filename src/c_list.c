@@ -28,7 +28,8 @@ void	ft_add_elem_obj(t_env *env)
 	obj->tile.green = env->set.obj[3]->tile.green;
 	obj->tile.blue =env->set.obj[3]->tile.blue;
 	obj->tile.w = env->set.obj[3]->tile.w;
-	obj->ref = env->set.obj[3]->ref;
+	obj->refle = env->set.obj[3]->refle;
+	obj->refra = env->set.obj[3]->refra;
 	obj->finished = env->set.obj[3]->finished;
 	obj->fin[0] = env->set.obj[3]->fin[0];
 	obj->fin[1] = env->set.obj[3]->fin[1];
@@ -98,7 +99,8 @@ void	ft_stock_elem(t_env *env)
 	env->tmp.tile.blue = env->set.obj[3]->tile.blue;
 	env->tmp.tile.w = env->set.obj[3]->tile.w;
 	env->tmp.tex = env->set.obj[3]->tex;
-	env->tmp.ref = env->set.obj[3]->ref;
+	env->tmp.refle = env->set.obj[3]->refle;
+	env->tmp.refra = env->set.obj[3]->refra;
 	env->tmp.angle = env->set.obj[3]->angle;
 	env->tmp.radius = env->set.obj[3]->radius;
 	env->tmp.finished = env->set.obj[3]->finished;
@@ -113,6 +115,7 @@ void	ft_undelete(t_env *env)
 	t_obj		*start;
 	t_obj		*new;
 
+	start = NULL;
 	new = NULL;
 	if ((new = (t_obj *)malloc(sizeof(t_obj))) == NULL)
 		ft_error();
@@ -124,7 +127,8 @@ void	ft_undelete(t_env *env)
 	new->angles.y = env->tmp.angles.y;
 	new->angles.z = env->tmp.angles.z;
 	new->angles.h = env->tmp.angles.h;
-	new->ref = env->tmp.ref;
+	new->refle = env->tmp.refle;
+	new->refra = env->tmp.refra;
 	new->color.red = env->tmp.color.red;
 	new->color.green = env->tmp.color.green;
 	new->color.blue = env->tmp.color.blue;
@@ -138,21 +142,31 @@ void	ft_undelete(t_env *env)
 	new->finished = env->tmp.finished;
 	new->fin[0] = env->tmp.fin[0];
 	new->fin[1] = env->tmp.fin[1];
-	start = env->obj;
-	if ((env->tmp.id_o - 1) == env->parse.objects)
+	if (env->obj)
+		start = env->obj;
+	if (env->tmp.id_o == 1)
+	{
+		if (start)
+		{
+			new->next = start;
+			start->prev = new;
+			new->prev = NULL;
+			env->obj = new;
+		}
+		else
+		{
+			env->obj = new;
+			env->obj->next = NULL;
+			env->obj->prev = NULL;
+		}
+	}
+	else if ((env->tmp.id_o - 1) == env->parse.objects)
 	{
 		while (start->next)
 			start = start->next;
 		new->next = NULL;
 		new->prev = start;
 		start->next = new;
-	}
-	else if (env->tmp.id_o == 1)
-	{
-		new->next = start;
-		start->prev = new;
-		new->prev = NULL;
-		env->obj = new;
 	}
 	else
 	{

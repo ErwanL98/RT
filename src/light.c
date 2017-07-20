@@ -6,7 +6,7 @@
 /*   By: mawasche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 12:37:30 by mawasche          #+#    #+#             */
-/*   Updated: 2017/06/23 11:15:35 by mawasche         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:32:36 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_normal_cone(t_env *env)
 			-env->tmp.current->angles.y, 2);
 	env->light->solution_point = (env->light->solution_point.x != 1 && \
 			env->light->solution_point.x != -1) ? \
-		ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 3) :\
-		ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 1);
+								 ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 3) :\
+								 ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 1);
 	env->light->normal_vect.x = 2 * env->light->solution_point.x;
 	env->light->normal_vect.y = 2 * env->light->solution_point.y;
 	env->light->normal_vect.z = -2 * env->light->solution_point.z * pow(tan(env->tmp.current->angle), 2);
@@ -52,8 +52,8 @@ void	ft_normal_cyl(t_env *env)
 			-env->tmp.current->angles.y, 2);
 	env->light->solution_point = (env->light->solution_point.x != 1 && \
 			env->light->solution_point.x != -1) ? \
-		ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 3) :\
-		ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 1);
+								 ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 3) :\
+								 ft_vect_rot(env->light->solution_point, -env->tmp.current->angles.x, 1);
 	env->light->normal_vect.x = 2 * env->light->solution_point.x;
 	env->light->normal_vect.y = 2 * env->light->solution_point.y;
 	env->light->normal_vect.z = 1;
@@ -113,10 +113,9 @@ void	ft_spotlight(t_env *env)
 	env->light->dir.y /= env->light->norme;
 	env->light->dir.z /= env->light->norme;
 	tmp = env->light->dir.x * env->light->light_vect.x +\
-	  env->light->dir.y *env->light->light_vect.y +\
-	  env->light->dir.z * env->light->light_vect.z;
+		  env->light->dir.y *env->light->light_vect.y +\
+		  env->light->dir.z * env->light->light_vect.z;
 	env->light->power = (tmp < -(sqrt(3.0) / 2) && tmp > -1) ? env->light->power : 0;
-	printf("%f\n", tmp);
 	test = tmp;
 }
 
@@ -143,6 +142,14 @@ void	ft_light(t_env *env)
 		env->light->light_vect.y /= env->light->norme;
 		env->light->light_vect.z /= env->light->norme;
 		ft_normal_vect(env);
+		env->light->normal_vect = ft_vect_rot(env->light->normal_vect,\
+			env->tmp.current->angles.z, 1);
+		env->light->normal_vect = ft_vect_rot(env->light->normal_vect, \
+			env->tmp.current->angles.y, 2);
+		env->light->normal_vect = (env->light->normal_vect.x != 1 && \
+			env->light->normal_vect.x != -1) ? \
+			ft_vect_rot(env->light->normal_vect, env->tmp.current->angles.x, 3) :\
+			ft_vect_rot(env->light->normal_vect, env->tmp.current->angles.x, 1);
 		env->light->power = env->light->normal_vect.x * env->light->light_vect.x +\
 							env->light->normal_vect.y *env->light->light_vect.y +\
 							env->light->normal_vect.z * env->light->light_vect.z;

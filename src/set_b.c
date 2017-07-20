@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 14:03:11 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 17:14:00 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/19 14:25:25 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_base_tab(t_env *env)
 	env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributes.bmp");
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
 	SDL_DestroyTexture(env->sdl.tset[TIMG]);
+	if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 30)) == NULL)
+		ft_error_sdl();
 	ft_base_text(env);
 	SDL_SetRenderTarget(env->sdl.rend, NULL);
 }
@@ -50,32 +52,38 @@ void	ft_base_text(t_env *env)
 				ft_itoa(env->set.obj[3]->radius), 2) : name;
 			name = (i == 5) ? ft_strdup("+") : name;
 			name = (i == 6) ? ft_strdup("-") : name;
-			name = (i == 7) ? ft_freestrjoin("Angle :  ", \
-				ft_itoa(env->set.obj[3]->angle), 2) : name;
-			name = (i == 8) ? ft_strdup("+") : name;
-			name = (i == 9) ? ft_strdup("-") : name;
-			name = (i == 10) ? ft_strdup("Object : ") : name;
-			if (i == 11)
-			{
-				name = (env->set.obj[3]->finished == 0) ? \
-					ft_strdup("Not Finished") : \
-					ft_strdup("Finished");
-			}
-			if (max == 17)
-			{
-				name = (i == 12) ? ft_freestrjoin("Min : ", \
-					ft_itoa(env->set.obj[3]->fin[0]), 2) : name;
-				name = (i == 13) ? ft_strdup("+") : name;	
-				name = (i == 14) ? ft_strdup("-") : name;
-				name = (i == 15) ? ft_strdup("Max : ") : name;
-				name = (i == 16) ? ft_strdup("+") : name;	
-				name = (i == 17) ? ft_strdup("-") : name;
-			}
-			env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
-				env->set.color[(env->set.select == i) ? 1 : 0]);
-			ft_copy_base_text(env, i, max);
+			ft_base_text2(env, &name, i, max);
 			i++;
 		}
+}
+
+void	ft_base_text2(t_env *env, char **name, int i, int max)
+{
+	*name = (i == 7) ? ft_freestrjoin("Angle :  ", \
+		ft_itoa(env->set.obj[3]->angle), 2) : *name;
+	*name = (i == 8) ? ft_strdup("+") : *name;
+	*name = (i == 9) ? ft_strdup("-") : *name;
+	*name = (i == 10) ? ft_strdup("Object : ") : *name;
+	if (i == 11)
+	{
+		*name = (env->set.obj[3]->finished == 0) ? \
+			ft_strdup("Not Finished") : \
+			ft_strdup("Finished");
+	}
+	if (max == 17)
+	{
+		*name = (i == 12) ? ft_freestrjoin("Min : ", \
+			ft_itoa(env->set.obj[3]->fin[0]), 2) : *name;
+		*name = (i == 13) ? ft_strdup("+") : *name;	
+		*name = (i == 14) ? ft_strdup("-") : *name;
+		*name = (i == 15) ? ft_freestrjoin("Max : ", \
+			ft_itoa(env->set.obj[3]->fin[1]), 2) : *name;
+		*name = (i == 16) ? ft_strdup("+") : *name;	
+		*name = (i == 17) ? ft_strdup("-") : *name;
+	}
+	env->sdl.text = TTF_RenderText_Blended(env->sdl.font, *name, \
+		env->set.color[(env->set.select == i) ? 1 : 0]);
+	ft_copy_base_text(env, i, max);
 }
 
 void    ft_copy_base_text(t_env *env, int i, int max)
@@ -99,6 +107,11 @@ void    ft_copy_base_text(t_env *env, int i, int max)
 			env->sdl.rset[DTEXT].x = (i == 10) ? env->sdl.rset[DTEXT].x - 62 : \
 				env->sdl.rset[DTEXT].x + 62;
 	}
+	ft_copy_base_text2(env, i, max);
+}
+
+void	ft_copy_base_text2(t_env *env, int i, int max)
+{
 	env->sdl.rset[DTEXT].y = HEIGHT / 4 + env->set.pos;
 	SDL_FreeSurface(env->sdl.text);
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \

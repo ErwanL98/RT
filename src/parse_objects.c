@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 11:43:50 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/19 11:29:42 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	ft_parse_objects(t_env *env)
 	}
 	else if (ft_strequ(env->parse.split[0], "reflexion") && 2 <= \
 			env->parse.tablen)
-		env->tmp.ref = ft_atoi(env->parse.split[2]);
+		env->tmp.refle = ft_atoi(env->parse.split[2]);
+	else if (ft_strequ(env->parse.split[0], "refraction") && 2 <= \
+			env->parse.tablen)
+		env->tmp.refra = ft_atoi(env->parse.split[2]);
 	else if (ft_strequ(env->parse.split[0], "finished"))
 	{
 		env->tmp.finished = 1;

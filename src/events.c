@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:49:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 17:13:58 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/19 15:22:49 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 void	ft_event(t_env *env)
 {
-	if (env->set.tab == INTERFACE)
-		ft_ev_inter(env);
-	else if (env->set.tab == OBJECTS)
-		ft_ev_obj(env);
-	else if (env->set.tab == ATTRIBUTES)
-		ft_ev_at(env);
-	else if (env->set.tab == POSTAB)
-		ft_ev_pos(env);
-	else if (env->set.tab == DIRTAB)
-		ft_ev_dir(env);
-	else if (env->set.tab == COLTAB)
-		ft_ev_col(env);
-	else if (env->set.tab == BASETAB)
-		ft_ev_base(env);
+	void	(*tab[9])(t_env *);
+
+	tab[0] = ft_ev_inter;
+	tab[1] = ft_ev_obj;
+	tab[2] = ft_ev_at;
+	tab[3] = ft_ev_pos;
+	tab[4] = ft_ev_dir;
+	tab[5] = ft_ev_col;
+	tab[6] = ft_ev_base;
+	tab[7] = ft_ev_eff;
+	tab[8] = ft_ev_tex;
+	tab[env->set.tab](env);
 }
 
-void	ft_ev_base(t_env *env)
+void	ft_ev_base_return3(t_env *env)
 {
-	static int	test = 0;
-
-	ft_ev_base_rlb(env);
-	ft_ev_base_down(env, &test);
-	ft_ev_base_up(env, &test);
+	if (env->set.obj[3]->finished == 1 && (env->set.select == 16 || \
+			env->set.select == 17))
+	{
+		env->set.obj[3]->fin[1] = (env->set.select == 16) ? \
+			env->set.obj[3]->fin[1] + env->set.inc : \
+			env->set.obj[3]->fin[1] - env->set.inc;
+		SDL_DestroyTexture(env->sdl.draw);
+		ft_browse_pixels(env);
+	}
 }

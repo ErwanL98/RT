@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/18 11:15:23 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/20 11:57:49 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int		main(int ac, char **av)
 				env.sdl.keep = 0;
 			if (env.sdl.event.type == SDL_KEYDOWN)
 			{
+				if (env.sdl.event.key.keysym.sym == SDLK_d)
+				{
+					env.cam.pos.x += 0.05;
+					SDL_DestroyTexture(env.sdl.draw);
+					ft_browse_pixels(&env);
+				}
 				ft_event(&env);
 				ft_settings(&env);
 				ft_display(&env);

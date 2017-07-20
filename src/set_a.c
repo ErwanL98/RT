@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:13:30 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 13:21:45 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/18 17:26:40 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,19 @@ void	ft_attributes(t_env *env)
 		HEIGHT)) == NULL)
 		ft_error_sdl();
 	SDL_SetRenderTarget(env->sdl.rend, env->sdl.tset[TINTER]);
-	env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributes.bmp");
-	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
-	SDL_DestroyTexture(env->sdl.tset[TIMG]);
 	if (env->set.p[1] == 0)
+	{
+		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributesn.bmp");
+		SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
 		ft_at_text1(env);
+	}
+	else if (env->set.p[1] == 1)
+	{
+		env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributesp.bmp");
+		SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
+		ft_at_text2(env);
+	}
+	SDL_DestroyTexture(env->sdl.tset[TIMG]);
 	SDL_SetRenderTarget(env->sdl.rend, NULL);
 }
 
@@ -50,6 +58,25 @@ void	ft_at_text1(t_env *env)
 	free(name);
 }
 
+void	ft_at_text2(t_env *env)
+{
+	int		i;
+	char	*name;
+
+	name = NULL;
+	i = 1;
+	while (i <= 2)
+	{
+		name = (i == 1) ? ft_strdup("Effects") : name;
+		name = (i == 2) ? ft_strdup("Textures") : name;
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
+			env->set.color[(env->set.select == i) ? 1 : 0]);
+		ft_copy_text_at(env, i);
+		i++;
+	}
+	free(name);
+}
+
 void	ft_copy_text_at(t_env *env, int i)
 {
 	if ((env->sdl.tset[TTEXT] = SDL_CreateTextureFromSurface(env->sdl.rend, \
@@ -62,5 +89,6 @@ void	ft_copy_text_at(t_env *env, int i)
 	SDL_FreeSurface(env->sdl.text);
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \
 		&env->sdl.rset[DTEXT]);
-	env->set.pos = (i == 6) ? 0 : env->set.pos + 50;
+	env->set.pos = (i == 6 || (i == 2 && env->set.p[1] == 1)) ? 0 : \
+		env->set.pos + 50;
 }

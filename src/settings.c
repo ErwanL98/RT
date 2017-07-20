@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 12:54:04 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 13:04:29 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/19 13:50:43 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 void	ft_settings(t_env *env)
 {
-	if (env->set.tab == INTERFACE)
-		ft_interface(env);
-	else if (env->set.tab == OBJECTS)
-		ft_s_objects(env);
-	else if (env->set.tab == ATTRIBUTES)
-		ft_attributes(env);
-	else if (env->set.tab == POSTAB)
-		ft_pos_tab(env);
-	else if (env->set.tab == DIRTAB)
-		ft_dir_tab(env);
-	else if (env->set.tab == COLTAB)
-		ft_col_tab(env);
-	else if (env->set.tab == BASETAB)
-		ft_base_tab(env);
+	void	(*tab[9])(t_env *);
+
+	tab[0] = ft_interface;
+	tab[1] = ft_s_objects;
+	tab[2] = ft_attributes;
+	tab[3] = ft_pos_tab;
+	tab[4] = ft_dir_tab;
+	tab[5] = ft_col_tab;
+	tab[6] = ft_base_tab;
+	tab[7] = ft_eff_tab;
+	tab[8] = ft_tex_tab;
+	tab[env->set.tab](env);
 }

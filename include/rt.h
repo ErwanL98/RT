@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 16:42:42 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/20 11:38:57 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ enum {TIMG, TINTER, TTEXT};
 enum {SIMG, STEXT};
 enum {DTEXT, DINTER};
 enum {MIN, MAX};
-enum {INTERFACE, OBJECTS, LIGHTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB};
+enum {INTERFACE, OBJECTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB, EFFTAB, \
+	TEXTAB, LIGHTS};
 
 typedef struct		s_vecti
 {
@@ -100,7 +101,8 @@ typedef struct		s_obj
 	t_vect			dir;
 	t_color			tile;
 	int				tex;
-	int				ref;
+	int				refle;
+	int				refra;
 	int				fin[2];
 	int				finished;
 }					t_obj;
@@ -137,7 +139,8 @@ typedef struct		s_tmp
     double          power;
 	t_color			tile;
 	int				tex;
-	int				ref;
+	int				refle;
+	int				refra;
 	int				fin[2];
 	int				finished;
 }					t_tmp;
@@ -288,6 +291,7 @@ void				ft_ev_inter(t_env *env);
 void				ft_ev_obj(t_env *env);
 void				ft_attributes(t_env *env);
 void				ft_at_text1(t_env *env);
+void				ft_at_text2(t_env *env);
 void				ft_copy_text_at(t_env *env, int i);
 void				ft_ev_at(t_env *env);
 void				ft_add_elem_obj(t_env *env);
@@ -327,17 +331,40 @@ void				ft_ev_obj_duret(t_env *env);
 void				ft_ev_obj_rb(t_env *env);
 void				ft_ev_obj_l(t_env *env);
 void				ft_ev_obj_u(t_env *env);
-void				ft_ev_at_dub(t_env *env);
+void				ft_ev_at_dubrl(t_env *env);
 void				ft_ev_at_return1(t_env *env);
 void				ft_ev_at_return2(t_env *env);
 void				ft_ev_at_return3(t_env *env);
+void				ft_ev_at_return4(t_env *env);
 void				ft_parse_finished(t_env *env, int i);
 void				ft_base_tab(t_env *env);
 void				ft_base_text(t_env *env);
+void				ft_base_text2(t_env *env, char **name, int i, int max);
 void				ft_copy_base_text(t_env *env, int i, int max);
+void				ft_copy_base_text2(t_env *env, int i, int max);
 void				ft_ev_base(t_env *env);
 void				ft_ev_base_rlb(t_env *env);
 void				ft_ev_base_down(t_env *env, int *test);
 void				ft_ev_base_up(t_env *env, int *test);
+void				ft_ev_base_return1(t_env *env);
+void				ft_ev_base_return2(t_env *env);
+void				ft_ev_base_return3(t_env *env);
+void				ft_eff_tab(t_env *env);
+void				ft_eff_text(t_env *env);
+void				ft_eff_text2(t_env *env, int i, char **name);
+void				ft_copy_eff_text(t_env *env, int i);
+void				ft_ev_eff(t_env *env);
+void				ft_ev_eff_rlb(t_env *env);
+void				ft_ev_eff_du(t_env *env);
+void				ft_ev_eff_return1(t_env *env);
+void				ft_ev_eff_return2(t_env *env);
+void				ft_ev_tex(t_env *env);
+void				ft_tex_tab(t_env *env);
+void				ft_tex_text(t_env *env);
+void				ft_tex_text2(t_env *env, int i, char **name);
+void				ft_copy_tex_text(t_env *env, int i);
+void				ft_ev_tex(t_env *env);
+void				ft_ev_tex_rlb(t_env *env);
+void				ft_ev_tex_du(t_env *env);
 
 #endif
