@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/20 11:38:57 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/20 15:10:03 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,8 @@ typedef struct		s_thread
 	SDL_Thread		*t_2;
 	SDL_Thread		*t_3;
 	SDL_Thread		*t_4;
-	SDL_mutex		*mutex;
+	int				id;
+	int				finished;
 }					t_thread;
 
 typedef struct	s_env
@@ -366,5 +367,6 @@ void				ft_copy_tex_text(t_env *env, int i);
 void				ft_ev_tex(t_env *env);
 void				ft_ev_tex_rlb(t_env *env);
 void				ft_ev_tex_du(t_env *env);
+t_env				*dup_struct(t_env *src, int id);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 12:56:28 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 17:35:56 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:57:06 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ void	ft_ev_obj_duret(t_env *env)
 			env->set.nb[0]) : env->set.select - 1;
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
 	{
-		i = 0;
-		while (env->set.obj[3] && ++i < (6 * env->set.p[0] + env->set.select))
-			env->set.obj[3] = env->set.obj[3]->next;
-		env->set.tab = ATTRIBUTES;
-		env->set.pos = 0;
-		env->set.id_o = 6 * env->set.p[0] + env->set.select;
-		env->set.select = 1;
+		if (env->obj)
+		{
+			i = 0;
+			while (env->set.obj[3] && ++i < (6 * env->set.p[0] + env->set.select))
+				env->set.obj[3] = env->set.obj[3]->next;
+			env->set.tab = ATTRIBUTES;
+			env->set.pos = 0;
+			env->set.id_o = 6 * env->set.p[0] + env->set.select;
+			env->set.select = 1;
+		}
 	}
 }
 

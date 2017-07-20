@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:07:16 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 16:51:22 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/20 14:55:46 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	ft_ev_at_return1(t_env *env)
 		{
 			if (env->set.select == 1)
 			{
+				env->parse.objects++;
 				ft_add_elem_obj(env);
 				env->tmp.current = NULL;
 				SDL_DestroyTexture(env->sdl.draw);
 				ft_browse_pixels(env);
-				env->parse.objects++;
 				ft_init_set(env);
 				env->set.tab = OBJECTS;
 			}
@@ -66,13 +66,13 @@ void	ft_ev_at_return1(t_env *env)
 
 void	ft_ev_at_return2(t_env *env)
 {
+	env->parse.objects--;
 	ft_stock_elem(env);
 	ft_delete_elem_obj(env);
 	ft_init_set(env);
 	env->set.del = 1;
 	SDL_DestroyTexture(env->sdl.draw);
 	ft_browse_pixels(env);
-	env->parse.objects--;
 	env->set.tab = OBJECTS;
 	if (env->parse.objects == 0)
 	{
