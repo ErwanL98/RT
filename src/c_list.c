@@ -24,10 +24,6 @@ void	ft_add_elem_obj(t_env *env)
 	obj->color.green = env->set.obj[3]->color.green;
 	obj->color.blue = env->set.obj[3]->color.blue;
 	obj->tex = env->set.obj[3]->tex;
-	obj->tile.red = env->set.obj[3]->tile.red;
-	obj->tile.green = env->set.obj[3]->tile.green;
-	obj->tile.blue =env->set.obj[3]->tile.blue;
-	obj->tile.w = env->set.obj[3]->tile.w;
 	obj->refle = env->set.obj[3]->refle;
 	obj->refra = env->set.obj[3]->refra;
 	obj->finished = env->set.obj[3]->finished;
@@ -94,10 +90,6 @@ void	ft_stock_elem(t_env *env)
 	env->tmp.color.red = env->set.obj[3]->color.red;
 	env->tmp.color.green = env->set.obj[3]->color.green;
 	env->tmp.color.blue = env->set.obj[3]->color.blue;
-	env->tmp.tile.red = env->set.obj[3]->tile.red;
-	env->tmp.tile.green = env->set.obj[3]->tile.green;
-	env->tmp.tile.blue = env->set.obj[3]->tile.blue;
-	env->tmp.tile.w = env->set.obj[3]->tile.w;
 	env->tmp.tex = env->set.obj[3]->tex;
 	env->tmp.refle = env->set.obj[3]->refle;
 	env->tmp.refra = env->set.obj[3]->refra;
@@ -132,10 +124,6 @@ void	ft_undelete(t_env *env)
 	new->color.red = env->tmp.color.red;
 	new->color.green = env->tmp.color.green;
 	new->color.blue = env->tmp.color.blue;
-	new->tile.red = env->tmp.tile.red;
-	new->tile.green = env->tmp.tile.green;
-	new->tile.blue = env->tmp.tile.blue;
-	new->tile.w = env->tmp.tile.w;
 	new->tex = env->tmp.tex;
 	new->angle = env->tmp.angle;
 	new->radius = env->tmp.radius;

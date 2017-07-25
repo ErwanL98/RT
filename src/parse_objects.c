@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 11:29:42 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 17:05:52 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,15 @@ void	ft_parse_objects(t_env *env)
 		ft_parse_position(env, i);
 	else if (ft_strequ(env->parse.split[0], "angles") == 1)
 		ft_parse_angles(env, i);
-	else if (ft_strequ(env->parse.split[0], "tiles"))
-	{
-		env->tmp.tex = TILE;
-		ft_parse_tiles(env, i);
-	}
 	else if (ft_strequ(env->parse.split[0], "reflexion") && 2 <= \
 			env->parse.tablen)
 		env->tmp.refle = ft_atoi(env->parse.split[2]);
 	else if (ft_strequ(env->parse.split[0], "refraction") && 2 <= \
 			env->parse.tablen)
 		env->tmp.refra = ft_atoi(env->parse.split[2]);
+	else if (ft_strequ(env->parse.split[0], "texture") && 2 <= \
+			env->parse.tablen)
+		ft_parse_tex(env);
 	else if (ft_strequ(env->parse.split[0], "finished"))
 	{
 		env->tmp.finished = 1;
@@ -70,21 +68,16 @@ void	ft_parse_objects(t_env *env)
 	}
 }
 
-void	ft_parse_tiles(t_env *env, int i)
+void	ft_parse_tex(t_env *env)
 {
-	while (env->parse.split[i])
-	{
-		if (ft_strequ(env->parse.split[i], "red") && (i + 2) \
-								<= env->parse.tablen)
-			env->tmp.tile.red = ft_atoi(env->parse.split[i + 2]);
-		if (ft_strequ(env->parse.split[i], "blue") && (i + 2) \
-												<= env->parse.tablen)
-			env->tmp.tile.blue = ft_atoi(env->parse.split[i + 2]);
-		if (ft_strequ(env->parse.split[i], "green") && (i + 2) \
-				<= env->parse.tablen)
-			env->tmp.tile.green = ft_atoi(env->parse.split[i + 2]);
-		if (ft_strequ(env->parse.split[i], "w") && (i + 2) <= env->parse.tablen)
-			env->tmp.tile.w = ft_atoi(env->parse.split[i + 2]);
-		i++;
-	}
+	if (ft_strequ(env->parse.split[2], "checker"))
+		env->tmp.tex = CHECKER;
+	else if (ft_strequ(env->parse.split[2], "moon"))
+		env->tmp.tex = MOON;
+	else if (ft_strequ(env->parse.split[2], "sun"))
+		env->tmp.tex = MOON;
+	else if (ft_strequ(env->parse.split[2], "earth"))
+		env->tmp.tex = MOON;
+	else if (ft_strequ(env->parse.split[2], "garden"))
+		env->tmp.tex = MOON;
 }

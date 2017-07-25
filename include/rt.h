@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 15:05:59 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 17:52:25 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ enum {TIMG, TINTER, TTEXT};
 enum {SIMG, STEXT};
 enum {DTEXT, DINTER};
 enum {MIN, MAX};
+enum {CHECKER = 1, MOON = 2, SUN = 3, EARTH = 4, GARDEN = 4};
 enum {INTERFACE, OBJECTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB, EFFTAB, \
 	TEXTAB};
 
@@ -136,7 +137,7 @@ typedef struct		s_tmp
 	t_obj			*current;
 	int				i;
 	double			darkness;
-    double          power;
+	double          power;
 	t_color			tile;
 	int				tex;
 	int				refle;
@@ -147,15 +148,15 @@ typedef struct		s_tmp
 
 typedef struct		s_light
 {
-    struct s_light	*next;
-    struct s_light	*prev;
+	struct s_light	*next;
+	struct s_light	*prev;
 	int				type;
-    t_vect          pos;
+	t_vect          pos;
 	t_vect          solution_point;
 	t_vect          normal_vect;
 	t_vect          light_vect;
 	double          norme;
-    double          power;
+	double          power;
 	t_vect          dir;
 	t_color			color;
 }					t_light;
@@ -204,11 +205,12 @@ typedef struct		s_sdl
 
 typedef struct		s_thread
 {
-	SDL_Thread		*t_1;
-	SDL_Thread		*t_2;
-	SDL_Thread		*t_3;
-	SDL_Thread		*t_4;
+	SDL_Thread		*t[4];
 	int				id;
+	int				y_start;
+	int				y_end;
+	int				x_start;
+	int				x_end;
 	int				finished;
 }					t_thread;
 
@@ -291,8 +293,7 @@ void				ft_copy_text_obj(t_env *env);
 void				ft_ev_inter(t_env *env);
 void				ft_ev_obj(t_env *env);
 void				ft_attributes(t_env *env);
-void				ft_at_text1(t_env *env);
-void				ft_at_text2(t_env *env);
+void				ft_at_text(t_env *env);
 void				ft_copy_text_at(t_env *env, int i);
 void				ft_ev_at(t_env *env);
 void				ft_add_elem_obj(t_env *env);
@@ -336,7 +337,6 @@ void				ft_ev_at_dubrl(t_env *env);
 void				ft_ev_at_return1(t_env *env);
 void				ft_ev_at_return2(t_env *env);
 void				ft_ev_at_return3(t_env *env);
-void				ft_ev_at_return4(t_env *env);
 void				ft_parse_finished(t_env *env, int i);
 void				ft_base_tab(t_env *env);
 void				ft_base_text(t_env *env);
@@ -369,5 +369,13 @@ void				ft_ev_tex_rlb(t_env *env);
 void				ft_ev_tex_du(t_env *env);
 t_env				*dup_struct(t_env *src, int id);
 t_vect				ft_normalize(t_vect vect);
+t_env				*dup_struct(t_env *src, int id);
+t_obj				*dup_obj(t_obj *src, t_env *env);
+t_light				*dup_light(t_light *src);
+t_tmp				dup_tmp(t_tmp src);
+t_vect				dup_vect(t_vect src);
+t_color				dup_color(t_color src);
+void				thread_suppr_dup(t_env *env);
+void				ft_parse_tex(t_env *env);
 
 #endif

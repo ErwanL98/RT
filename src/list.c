@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 13:08:14 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 11:05:36 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 17:38:08 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ t_obj	*ft_fill_obj(t_env *env)
 	obj->color.green = env->tmp.color.green;
 	obj->color.blue = env->tmp.color.blue;
 	obj->tex = env->tmp.tex;
-	obj->tile.red = env->tmp.tile.red;
-	obj->tile.green = env->tmp.tile.green;
-	obj->tile.blue = env->tmp.tile.blue;
-	obj->tile.w = env->tmp.tile.w;
 	obj->refle = env->tmp.refle;
 	obj->refra = env->tmp.refra;
 	obj->fin[0] = env->tmp.fin[0];
