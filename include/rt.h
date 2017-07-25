@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/20 15:10:03 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 10:55:46 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define WIDTHR 640
 # define HEIGHT 480
 # define WIDTHS 300
-# define VIEWPLANED 1
+# define VIEWPLANED 1.0
 # define VIEWPLANEW 0.64
 # define VIEWPLANEH 0.48
-# define F 1
+# define F 1.0
 # define XINDENT VIEWPLANEW / (double)WIDTHR
 # define YINDENT VIEWPLANEH / (double)HEIGHT
 
@@ -286,7 +286,7 @@ void				ft_event(t_env *env);
 void				ft_check_obj_types2(t_env *env);
 void				ft_s_objects(t_env *env);
 void				ft_text_objects(t_env *env);
-void				ft_text_objects2(t_env *env, char **name);
+void				ft_text_objects2(t_env *env);
 void				ft_copy_text_obj(t_env *env);
 void				ft_ev_inter(t_env *env);
 void				ft_ev_obj(t_env *env);
@@ -368,5 +368,6 @@ void				ft_ev_tex(t_env *env);
 void				ft_ev_tex_rlb(t_env *env);
 void				ft_ev_tex_du(t_env *env);
 t_env				*dup_struct(t_env *src, int id);
+t_vect				ft_normalize(t_vect vect);
 
 #endif

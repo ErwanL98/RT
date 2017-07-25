@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/20 15:03:08 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:04:05 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		main(int ac, char **av)
 	t_env	env;
 	int		i;
 
+	(void)av;
 	if (ac == 2)
 	{
 		i = 1;
@@ -50,8 +51,7 @@ int		main(int ac, char **av)
 		while (env.sdl.keep)
 		{
 			SDL_WaitEvent(&env.sdl.event);
-			if (env.sdl.event.type == SDL_QUIT || \
-								env.sdl.event.key.keysym.sym == SDLK_ESCAPE)
+			if (env.sdl.event.type == SDL_QUIT)
 				env.sdl.keep = 0;
 			if (env.sdl.event.type == SDL_KEYDOWN)
 			{
@@ -61,9 +61,29 @@ int		main(int ac, char **av)
 					SDL_DestroyTexture(env.sdl.draw);
 					ft_browse_pixels(&env);
 				}
+				if (env.sdl.event.key.keysym.sym == SDLK_a)
+				{
+					env.cam.pos.x -= 0.05;
+					SDL_DestroyTexture(env.sdl.draw);
+					ft_browse_pixels(&env);
+				}
+				if (env.sdl.event.key.keysym.sym == SDLK_s)
+				{
+					env.cam.pos.y -= 0.05;
+					SDL_DestroyTexture(env.sdl.draw);
+					ft_browse_pixels(&env);
+				}
+				if (env.sdl.event.key.keysym.sym == SDLK_w)
+				{
+					env.cam.pos.y += 1;
+					SDL_DestroyTexture(env.sdl.draw);
+					ft_browse_pixels(&env);
+				}
 				ft_event(&env);
 				ft_settings(&env);
 				ft_display(&env);
+				if (env.sdl.event.key.keysym.sym == SDLK_ESCAPE)
+					env.sdl.keep = 0;
 			}
 		}
 		SDL_DestroyRenderer(env.sdl.rend);

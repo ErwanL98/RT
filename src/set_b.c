@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 14:03:11 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 14:25:25 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 10:38:25 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,24 @@ void	ft_base_text(t_env *env)
 	char	*name;
 
 	name = NULL;
-	i = 1;
+	i = 0;
 	max = (env->set.obj[3]->finished == 0) ? 11 : 17;
 	if (max == 17)
-	{
 		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 25)) == NULL)
 			ft_error_sdl();
+	while (++i <= max)
+	{
+		name = (i == 1) ? ft_freestrjoin("Increment :  ", \
+			ft_itoa(env->set.inc), 2) : name;
+		name = (i == 2) ? ft_strdup("x2") : name;
+		name = (i == 3) ? ft_strdup("/2") : name;
+		name = (i == 4) ? ft_freestrjoin("Radius :  ", \
+			ft_itoa(env->set.obj[3]->radius), 2) : name;
+		name = (i == 5) ? ft_strdup("+") : name;
+		name = (i == 6) ? ft_strdup("-") : name;
+		ft_base_text2(env, &name, i, max);
+		ft_strdel(&name);
 	}
-		while (i <= max)
-		{
-			name = (i == 1) ? ft_freestrjoin("Increment :  ", \
-				ft_itoa(env->set.inc), 2) : name;
-			name = (i == 2) ? ft_strdup("x2") : name;
-			name = (i == 3) ? ft_strdup("/2") : name;
-			name = (i == 4) ? ft_freestrjoin("Radius :  ", \
-				ft_itoa(env->set.obj[3]->radius), 2) : name;
-			name = (i == 5) ? ft_strdup("+") : name;
-			name = (i == 6) ? ft_strdup("-") : name;
-			ft_base_text2(env, &name, i, max);
-			i++;
-		}
 }
 
 void	ft_base_text2(t_env *env, char **name, int i, int max)

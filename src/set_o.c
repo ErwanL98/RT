@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 16:22:22 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 13:42:40 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:05:33 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	ft_text_objects(t_env *env)
 	int		i;
 	char	*name;
 
-	i = 1;
+	i = 0;
 	name = NULL;
-	while (env->set.obj[1] && i <= 6)
+	while (env->set.obj[1] && ++i <= 6)
 	{
 		name = (env->set.obj[1]->type == SPHERE) ? ft_freestrjoin(\
 			ft_itoa(env->set.nb[1] + 1), " : Sphere ", 1) : name;
@@ -62,19 +62,18 @@ void	ft_text_objects(t_env *env)
 		ft_copy_text_obj(env);
 		env->set.nb[1]++;
 		env->set.obj[1] = env->set.obj[1]->next;
-		i++;
+		ft_strdel(&name);
 	}
-	ft_text_objects2(env, &name);
+	ft_text_objects2(env);
 }
 
-void	ft_text_objects2(t_env *env, char **name)
+void	ft_text_objects2(t_env *env)
 {
 	if (env->set.block == 0)
 	{
 		env->set.nb[2] = env->set.nb[1];
 		env->set.obj[2] = env->set.obj[1];
 	}
-	free(*name);
 }
 
 void	ft_copy_text_obj(t_env *env)

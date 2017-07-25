@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:13:30 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/18 17:26:40 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:03:44 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	ft_at_text1(t_env *env)
 		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_text_at(env, i);
+		ft_strdel(&name);
 		i++;
 	}
-	free(name);
 }
 
 void	ft_at_text2(t_env *env)
@@ -72,9 +72,9 @@ void	ft_at_text2(t_env *env)
 		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_text_at(env, i);
+		ft_strdel(&name);
 		i++;
 	}
-	free(name);
 }
 
 void	ft_copy_text_at(t_env *env, int i)

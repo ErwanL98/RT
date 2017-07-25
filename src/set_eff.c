@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:24:16 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 13:48:10 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 10:39:34 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	ft_eff_text(t_env *env)
 		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_eff_text(env, i);
+		ft_strdel(&name);
 		i++;
 	}
-	free(name);
 }
 
 void	ft_eff_text2(t_env *env, int i, char **name)
