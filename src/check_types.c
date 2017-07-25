@@ -86,9 +86,4 @@ void	ft_check_light_types(t_env *env)
 		env->parse.type_light = SPOT;
 		env->parse.lights++;
 	}
-	else if (ft_strequ(env->parse.split[0], "pointlight"))
-	{
-		env->parse.type_light = POINT;
-		env->parse.lights++;
-	}
 }
