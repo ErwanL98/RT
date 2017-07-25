@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:29:34 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/20 16:36:47 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:46:26 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_display(t_env *env)
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TINTER], NULL, \
 		&env->sdl.rset[DINTER]);
 	SDL_RenderCopy(env->sdl.rend, env->sdl.draw, NULL, &env->sdl.rt);
+	SDL_DestroyTexture(env->sdl.tset[TINTER]);
 	SDL_RenderPresent(env->sdl.rend);
 }
 

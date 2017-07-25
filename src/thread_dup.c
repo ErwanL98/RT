@@ -6,7 +6,7 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:45 by gauffret          #+#    #+#             */
-/*   Updated: 2017/07/20 15:29:35 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 14:53:36 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,9 @@ t_cam	dup_cam(t_cam src)
 	cam.pos = dup_vect(src.pos);
 	cam.dir = dup_vect(src.dir);
 	cam.pixel = dup_vect(src.pixel);
-	cam.view_plane = dup_vect(src.view_plane);
+	//cam.view_plane = dup_vect(src.view_plane);
 	cam.up = dup_vect(src.up);
-	cam.right = dup_vect(src.right);
+	//cam.right = dup_vect(src.right);
 	return (cam);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mawasche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 12:37:30 by mawasche          #+#    #+#             */
-/*   Updated: 2017/07/19 17:32:36 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:18:06 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,11 @@ void	ft_light(t_env *env)
 			env->tmp.current->angles.z, 1);
 		env->light->normal_vect = ft_vect_rot(env->light->normal_vect, \
 			env->tmp.current->angles.y, 2);
-		env->light->normal_vect = (env->light->normal_vect.x != 1 && \
+		/*env->light->normal_vect = (env->light->normal_vect.x != 1 && \
 			env->light->normal_vect.x != -1) ? \
 			ft_vect_rot(env->light->normal_vect, env->tmp.current->angles.x, 3) :\
 			ft_vect_rot(env->light->normal_vect, env->tmp.current->angles.x, 1);
-		env->light->power = env->light->normal_vect.x * env->light->light_vect.x +\
+		*/env->light->power = env->light->normal_vect.x * env->light->light_vect.x +\
 							env->light->normal_vect.y *env->light->light_vect.y +\
 							env->light->normal_vect.z * env->light->light_vect.z;
 		if (env->light->power < 0)

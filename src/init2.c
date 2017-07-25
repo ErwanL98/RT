@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:02:17 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/24 16:39:03 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 15:01:22 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	ft_init_pixel(t_env *env)
 	env->tmp.solution = -1;
 	env->tmp.current = NULL;
 	env->calc.solution = -1;
-	env->cam.pixel.x = env->cam.view_plane.x + env->cam.right.x * \
+	env->cam.view_plane_point = ft_vect_op(ft_vect_op(env->cam.bot, '+', \
+		ft_vect_op2(env->sdl.pos.x, '*', env->cam.x_inc)), '+', \
+		ft_vect_op2(env->sdl.pos.y, '*', env->cam.y_inc));
+	env->cam.pixel = ft_vect_op(env->cam.view_plane_point, '-', env->cam.pos);
+	/*env->cam.pixel.x = env->cam.view_plane.x + env->cam.right.x * \
 		XINDENT * env->sdl.pos.x - env->cam.up.x * \
 		YINDENT * env->sdl.pos.y;
 	env->cam.pixel.y = env->cam.view_plane.y + env->cam.right.y * \
@@ -25,7 +29,7 @@ void	ft_init_pixel(t_env *env)
 		YINDENT * env->sdl.pos.y;
 	env->cam.pixel.z = env->cam.view_plane.z + env->cam.right.z * \
 		XINDENT * env->sdl.pos.x - env->cam.up.z * \
-		YINDENT * env->sdl.pos.y;
+		YINDENT * env->sdl.pos.y;*/
 }
 
 void	ft_init_set(t_env *env)
