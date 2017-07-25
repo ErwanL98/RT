@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:29:34 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 11:46:26 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 18:08:04 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,51 +34,12 @@ void	ft_display(t_env *env)
 
 Uint32	ft_chose_color(t_env *env)
 {
-	t_vecti	tmp;
-	t_vect	sol;
-	Uint32	color[2];
+	Uint32	color;
 
-	color[0] = SDL_MapRGBA(env->sdl.format, env->tmp.current->color.red * \
-				env->light->power * env->tmp.darkness, env->tmp.current->color.\
-				green * env->light->power * env->tmp.darkness, \
-				env->tmp.current->color.blue * env->light->power * \
-				env->tmp.darkness, 255);
-	color[1] = SDL_MapRGBA(env->sdl.format, env->tmp.current->tile.red * \
-				env->light->power * env->tmp.darkness, env->tmp.current->tile.\
-				green * env->light->power * env->tmp.darkness, \
-				env->tmp.current->tile.blue * env->light->power * \
-				env->tmp.darkness, 255);
-	if (env->tmp.current->tex == TILE)
-	{
-		sol = ft_calc_sol(env);
-		sol.x -= env->tmp.current->pos.x;
-		sol.y -= env->tmp.current->pos.y;
-		sol.z -= env->tmp.current->pos.z;
-		sol = ft_vect_rot(sol, -env->tmp.current->angles.z, 1);
-		sol = ft_vect_rot(sol, -env->tmp.current->angles.y, 2);
-		sol = (sol.x != 1 && sol.x != -1) ? \
-			ft_vect_rot(sol, -env->tmp.current->angles.x, 3) : \
-			ft_vect_rot(sol, -env->tmp.current->angles.x, 1);
-		tmp.x = (int)(floor(sol.x / env->tmp.current->tile.w));	
-		tmp.y = (int)(floor(sol.y / env->tmp.current->tile.w));	
-		tmp.z = (int)(floor(sol.z / env->tmp.current->tile.w));
-		if (tmp.z % 2 == 0)
-		{
-			if ((tmp.x % 2 == 0 && tmp.y % 2 == 0) || \
-					(tmp.x % 2 != 0 && tmp.y % 2 != 0))
-				return (color[0]);
-			else
-				return (color[1]);
-		}
-		else
-		{	
-			if ((tmp.x % 2 == 0 && tmp.y % 2 == 0) || \
-					(tmp.x % 2 != 0 && tmp.y % 2 != 0))
-				return (color[1]);
-			else
-				return (color[0]);
-		}
-	}
-	else
-		return (color[0]);
+	color= SDL_MapRGBA(env->sdl.format, env->tmp.current->color.red * \
+		env->light->power * env->tmp.darkness, env->tmp.current->color.\
+		green * env->light->power * env->tmp.darkness, \
+		env->tmp.current->color.blue * env->light->power * \
+		env->tmp.darkness, 255);
+	return (color);
 }
