@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 13:37:41 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:44:29 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		ft_parse_tex(t_env *env)
 		env->tmp.tex = GARDEN;
 }
 
-void	ft_parse_refraction(t_env *env, int i)
+void		ft_parse_refraction(t_env *env, int i)
 {
 	while (env->parse.split[i])
 	{

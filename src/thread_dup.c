@@ -6,7 +6,7 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:45 by gauffret          #+#    #+#             */
-/*   Updated: 2017/07/19 11:47:46 by gauffret         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:46:30 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,8 @@ t_env	*dup_struct(t_env *src, int id)
 
 	if (!(dest = (t_env *)malloc(sizeof(t_env))))
 		ft_error();
-	//dest->sdl = src->sdl;
-	//dest->parse = src->parse;
-	//dest->check = src->check;
-	//dest->set = src->set;
 	dest->sdl.format = src->sdl.format;
 	dest->sdl.pixels = src->sdl.pixels;
-	//dest->sdl.tmp = src->sdl.tmp;
-	//dest->sdl.rend = src->sdl.rend;
-	//dest->sdl.pitch = src->sdl.pitch;
 	dest->thread.id = id;
 	dest->cam = dup_cam(src->cam);
 	dest->tmp = dup_tmp(src->tmp);

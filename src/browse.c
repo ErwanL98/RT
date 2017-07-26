@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:37:03 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 12:04:46 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:44:27 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos, int i)
 	{
 		env->calc.solution = -1;
 		ft_calc[env->obj->type - 1](env, ray_dir, ray_pos);
-		if (env->calc.solution > 0  && (env->tmp.current ==  NULL
+		if (env->calc.solution > 0 && (env->tmp.current == NULL
 					|| env->calc.solution < env->tmp.solution))
 		{
 			env->tmp.current = env->obj;

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 10:27:33 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 14:34:58 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:43:27 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ static void	ft_event_cam_dub(t_env *env)
 	}
 }
 
-void	ft_event_cam_rlf(t_env *env)
-{	
+void		ft_event_cam_rlf(t_env *env)
+{
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS)
 		env->cam.inc += 2;
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
-	{
 		env->cam.inc -= 2;
+	if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
 		env->cam.inc = (env->cam.inc < 10) ? 10 : env->cam.inc;
-	}
 	if (env->sdl.event.key.keysym.sym == SDLK_d)
 	{
 		env->cam.pos.x += env->cam.inc;
