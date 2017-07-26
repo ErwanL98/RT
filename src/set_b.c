@@ -22,8 +22,6 @@ void	ft_base_tab(t_env *env)
 	env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributes.bmp");
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
 	SDL_DestroyTexture(env->sdl.tset[TIMG]);
-	if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 30)) == NULL)
-		ft_error_sdl();
 	ft_base_text(env);
 	SDL_SetRenderTarget(env->sdl.rend, NULL);
 }
@@ -37,9 +35,6 @@ void	ft_base_text(t_env *env)
 	name = NULL;
 	i = 0;
 	max = (env->set.obj[3]->finished == 0) ? 11 : 17;
-	if (max == 17)
-		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 25)) == NULL)
-			ft_error_sdl();
 	while (++i <= max)
 	{
 		name = (i == 1) ? ft_freestrjoin("Increment :  ", \
@@ -79,8 +74,12 @@ void	ft_base_text2(t_env *env, char **name, int i, int max)
 		*name = (i == 16) ? ft_strdup("+") : *name;	
 		*name = (i == 17) ? ft_strdup("-") : *name;
 	}
-	env->sdl.text = TTF_RenderText_Blended(env->sdl.font, *name, \
-		env->set.color[(env->set.select == i) ? 1 : 0]);
+	if (max == 17)
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[2], *name, \
+			env->set.color[(env->set.select == i) ? 1 : 0]);
+	else
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], *name, \
+			env->set.color[(env->set.select == i) ? 1 : 0]);
 	ft_copy_base_text(env, i, max);
 }
 

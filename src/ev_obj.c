@@ -54,8 +54,6 @@ void	ft_ev_obj_rb(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_BACKSPACE)
 	{
-		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 50)) == NULL)
-			ft_error_sdl();
 		env->set.tab = INTERFACE;
 		env->set.pos = 0;
 		env->set.select = 1;

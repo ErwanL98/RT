@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 17:52:25 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 11:43:43 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,7 @@ enum {SIMG, STEXT};
 enum {DTEXT, DINTER};
 enum {MIN, MAX};
 enum {CHECKER = 1, MOON = 2, SUN = 3, EARTH = 4, GARDEN = 4};
-enum {INTERFACE, OBJECTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB, EFFTAB, \
-	TEXTAB};
-
-typedef struct		s_vecti
-{
-	int				x;
-	int				y;
-	int				z;
-}					t_vecti;
+enum {INTERFACE, OBJECTS, ATTRIBUTES, POSTAB, DIRTAB, COLTAB, BASETAB, EFFTAB};
 
 typedef struct		s_vect
 {
@@ -100,7 +92,6 @@ typedef struct		s_obj
 	t_color			color;
 	int				angle;
 	t_vect			dir;
-	t_color			tile;
 	int				tex;
 	int				refle;
 	int				refra;
@@ -129,8 +120,8 @@ typedef struct		s_tmp
 	t_vect			pos;
 	t_vect			angles;
 	int				radius;
-	int			type;
-	int			id_o;
+	int				type;
+	int				id_o;
 	t_color			color;
 	int				angle;
 	double			solution;
@@ -138,7 +129,6 @@ typedef struct		s_tmp
 	int				i;
 	double			darkness;
 	double          power;
-	t_color			tile;
 	int				tex;
 	int				refle;
 	int				refra;
@@ -188,7 +178,7 @@ typedef struct		s_sdl
 {
 	SDL_Window		*win;
 	SDL_Renderer	*rend;
-	TTF_Font		*font;
+	TTF_Font		*font[3];
 	SDL_PixelFormat	*format;
 	SDL_Texture		*draw;
 	SDL_Texture		*tset[3];
@@ -377,5 +367,9 @@ t_vect				dup_vect(t_vect src);
 t_color				dup_color(t_color src);
 void				thread_suppr_dup(t_env *env);
 void				ft_parse_tex(t_env *env);
+void				ft_event_cam_rlfb(t_env *env);
+void				ft_free(t_env *env);
+void				ft_free_obj(t_obj *obj);
+void				ft_free_light(t_light *light);
 
 #endif

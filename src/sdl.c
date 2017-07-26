@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 12:56:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 11:46:57 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 11:23:44 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	ft_init_sdl(t_env *env)
 	if ((env->sdl.rend = SDL_CreateRenderer(env->sdl.win, -1, 0)) == NULL)
 		ft_error_sdl();
 	env->sdl.format = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888);
-	if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 50)) == NULL)
+	if ((env->sdl.font[0] = TTF_OpenFont("fonts/bodoni.ttf", 50)) == NULL)
+		ft_error_sdl();
+	if ((env->sdl.font[1] = TTF_OpenFont("fonts/bodoni.ttf", 30)) == NULL)
+		ft_error_sdl();
+	if ((env->sdl.font[2] = TTF_OpenFont("fonts/bodoni.ttf", 25)) == NULL)
 		ft_error_sdl();
 	env->sdl.keep = 1;
 }

@@ -60,8 +60,6 @@ void	ft_ev_at_return2(t_env *env)
 	env->set.tab = OBJECTS;
 	if (env->parse.objects == 0)
 	{
-		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 50)) == NULL)
-			ft_error_sdl();
 		env->obj = NULL;
 		env->set.tab = INTERFACE;
 	}

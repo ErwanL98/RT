@@ -46,7 +46,7 @@ void	ft_col_text(t_env *env)
 		name = (i == 7) ? ft_freestrjoin("Green :  ", \
 			ft_itoa(env->set.obj[3]->color.green), 2) : name;
 		ft_col_text2(env, i, &name);
-		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_col_text(env, i);
 		ft_strdel(&name);

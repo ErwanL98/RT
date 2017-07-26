@@ -45,7 +45,7 @@ void	ft_text_cases_interface(t_env *env, int text)
 {
 	if (text == 1)
 	{
-		if ((env->sdl.text = TTF_RenderText_Blended(env->sdl.font, \
+		if ((env->sdl.text = TTF_RenderText_Blended(env->sdl.font[0], \
 				"Objects", env->set.color[(env->set.select == 1) ? 1 : 0]))\
 				== NULL)
 			ft_error_sdl();
@@ -59,8 +59,6 @@ void	ft_ev_inter(t_env *env)
 		env->set.tab = OBJECTS;
 		env->set.select = 1;
 		env->set.pos = 0;
-		if ((env->sdl.font = TTF_OpenFont("fonts/bodoni.ttf", 30)) == NULL)
-			ft_error_sdl();
 		SDL_DestroyTexture(env->sdl.tset[TINTER]);
 	}
 }

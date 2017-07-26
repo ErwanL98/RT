@@ -42,7 +42,7 @@ void	ft_at_text(t_env *env)
 		name = (i == 5) ? ft_strdup("Color") : name;
 		name = (i == 6) ? ft_strdup("Base") : name;
 		name = (i == 7) ? ft_strdup("Effects") : name;
-		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_text_at(env, i);
 		ft_strdel(&name);

@@ -57,7 +57,7 @@ void	ft_text_objects(t_env *env)
 			ft_itoa(env->set.nb[1] + 1), " : Cone ", 1) : name;
 		name = (env->set.obj[1]->type == PLANE) ? ft_freestrjoin(\
 			ft_itoa(env->set.nb[1] + 1), " : Plane ", 1) : name;
-		env->sdl.text = TTF_RenderText_Blended(env->sdl.font, name, \
+		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], name, \
 			env->set.color[(env->set.select == i) ? 1 : 0]);
 		ft_copy_text_obj(env);
 		env->set.nb[1]++;

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 17:05:52 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 11:39:23 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	ft_parse_tex(t_env *env)
 	else if (ft_strequ(env->parse.split[2], "moon"))
 		env->tmp.tex = MOON;
 	else if (ft_strequ(env->parse.split[2], "sun"))
-		env->tmp.tex = MOON;
+		env->tmp.tex = SUN;
 	else if (ft_strequ(env->parse.split[2], "earth"))
-		env->tmp.tex = MOON;
+		env->tmp.tex = EARTH;
 	else if (ft_strequ(env->parse.split[2], "garden"))
-		env->tmp.tex = MOON;
+		env->tmp.tex = GARDEN;
 }
