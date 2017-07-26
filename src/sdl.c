@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 12:56:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 11:23:44 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 11:46:57 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_init_sdl(t_env *env)
+void		ft_init_sdl(t_env *env)
 {
 	if ((SDL_Init(SDL_INIT_VIDEO) || TTF_Init()) != 0)
 		ft_error_sdl();

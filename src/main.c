@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:25 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:28:43 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_main_wh(t_env *env)
 		env->sdl.keep = 0;
 	if (env->sdl.event.type == SDL_KEYDOWN)
 	{
-		ft_event_cam_rlfb(env);
+		ft_event_cam_rlf(env);
 		ft_event(env);
 		ft_settings(env);
 		ft_display(env);
@@ -31,11 +31,9 @@ static void	ft_main_wh(t_env *env)
 int		main(int ac, char **av)
 {
 	t_env	env;
-	int		i;
 
 	if (ac == 2)
 	{
-		i = 1;
 		ft_parse(&env, av[1]);
 		ft_init_sdl(&env);
 		ft_init_set(&env);

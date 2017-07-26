@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:02:17 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 10:26:52 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 13:59:55 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	ft_init_set(t_env *env)
 {
 	env->set.tab = INTERFACE;
 	env->set.select = 1;
-	env->set.del = 0; 
-	env->set.inc = 1; 
+	env->set.del = 0;
+	env->set.inc = 1;
 	env->set.nb[0] = 0;
 	env->set.nb[1] = 0;
 	env->set.nb[2] = 0;

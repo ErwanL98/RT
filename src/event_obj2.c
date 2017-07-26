@@ -24,8 +24,6 @@ void	ft_ev_tex(t_env *env)
 {
 	ft_ev_tex_rlb(env);
 	ft_ev_tex_du(env);
-	/*if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
-		ft_ev_tex_return1(env);*/
 }
 
 void	ft_ev_base(t_env *env)

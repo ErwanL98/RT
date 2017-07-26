@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:29:34 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 18:16:30 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/25 18:08:04 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_display(t_env *env)
 {
 	SDL_SetRenderDrawColor(env->sdl.rend, 255, 255, 255, 255);
 	SDL_RenderClear(env->sdl.rend);
-	//ft_thread(env);
 	env->sdl.rt.x = 0;
 	env->sdl.rt.y = 0;
 	env->sdl.rt.w = WIDTHR;
@@ -36,7 +35,7 @@ Uint32	ft_chose_color(t_env *env)
 {
 	Uint32	color;
 
-	color= SDL_MapRGBA(env->sdl.format, env->tmp.current->color.red * \
+	color = SDL_MapRGBA(env->sdl.format, env->tmp.current->color.red * \
 		env->light->power * env->tmp.darkness, env->tmp.current->color.\
 		green * env->light->power * env->tmp.darkness, \
 		env->tmp.current->color.blue * env->light->power * \

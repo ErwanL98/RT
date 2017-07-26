@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:07:16 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 17:51:53 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:43:23 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_ev_at_dubrl(t_env *env)
+void		ft_ev_at_dubrl(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
 		env->set.select = (env->set.select == 7) ? 1 : env->set.select + 1;
@@ -25,47 +25,7 @@ void	ft_ev_at_dubrl(t_env *env)
 	}
 }
 
-void	ft_ev_at_return1(t_env *env)
-{
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
-	{
-		if (env->set.select == 1)
-		{
-			env->parse.objects++;
-			ft_add_elem_obj(env);
-			env->tmp.current = NULL;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
-			ft_init_set(env);
-			env->set.tab = OBJECTS;
-		}
-		else if (env->set.select == 2)
-			ft_ev_at_return2(env);
-		else if (env->set.select == 3 || env->set.select == 4 || \
-				env->set.select == 5 || env->set.select == 6 || \
-				env->set.select == 7)
-			ft_ev_at_return3(env);
-	}
-}
-
-void	ft_ev_at_return2(t_env *env)
-{
-	env->parse.objects--;
-	ft_stock_elem(env);
-	ft_delete_elem_obj(env);
-	ft_init_set(env);
-	env->set.del = 1;
-	SDL_DestroyTexture(env->sdl.draw);
-	ft_browse_pixels(env);
-	env->set.tab = OBJECTS;
-	if (env->parse.objects == 0)
-	{
-		env->obj = NULL;
-		env->set.tab = INTERFACE;
-	}
-}
-
-void	ft_ev_at_return3(t_env *env)
+static void	ft_ev_at_return3(t_env *env)
 {
 	if (env->set.select == 3)
 	{
@@ -91,5 +51,45 @@ void	ft_ev_at_return3(t_env *env)
 	{
 		env->set.tab = EFFTAB;
 		env->set.select = 2;
+	}
+}
+
+static void	ft_ev_at_return2(t_env *env)
+{
+	env->parse.objects--;
+	ft_stock_elem(env);
+	ft_delete_elem_obj(env);
+	ft_init_set(env);
+	env->set.del = 1;
+	SDL_DestroyTexture(env->sdl.draw);
+	ft_browse_pixels(env);
+	env->set.tab = OBJECTS;
+	if (env->parse.objects == 0)
+	{
+		env->obj = NULL;
+		env->set.tab = INTERFACE;
+	}
+}
+
+void		ft_ev_at_return1(t_env *env)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	{
+		if (env->set.select == 1)
+		{
+			env->parse.objects++;
+			ft_add_elem_obj(env);
+			env->tmp.current = NULL;
+			SDL_DestroyTexture(env->sdl.draw);
+			ft_browse_pixels(env);
+			ft_init_set(env);
+			env->set.tab = OBJECTS;
+		}
+		else if (env->set.select == 2)
+			ft_ev_at_return2(env);
+		else if (env->set.select == 3 || env->set.select == 4 || \
+				env->set.select == 5 || env->set.select == 6 || \
+				env->set.select == 7)
+			ft_ev_at_return3(env);
 	}
 }

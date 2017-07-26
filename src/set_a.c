@@ -6,27 +6,28 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/26 14:13:30 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/25 17:56:03 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:22:33 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_attributes(t_env *env)
+static void	ft_copy_text_at(t_env *env, int i)
 {
-	if ((env->sdl.tset[TINTER] = SDL_CreateTexture(env->sdl.rend, \
-		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTHS, \
-		HEIGHT)) == NULL)
+	if ((env->sdl.tset[TTEXT] = SDL_CreateTextureFromSurface(env->sdl.rend, \
+			env->sdl.text)) == NULL)
 		ft_error_sdl();
-	SDL_SetRenderTarget(env->sdl.rend, env->sdl.tset[TINTER]);
-	env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributes.bmp");
-	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
-	ft_at_text(env);
-	SDL_DestroyTexture(env->sdl.tset[TIMG]);
-	SDL_SetRenderTarget(env->sdl.rend, NULL);
+	SDL_QueryTexture(env->sdl.tset[TTEXT], NULL, NULL, &env->sdl.rset[DTEXT].w\
+		, &env->sdl.rset[DTEXT].h);
+	env->sdl.rset[DTEXT].x = ((WIDTHS / 2) - (env->sdl.rset[DTEXT].w / 2));
+	env->sdl.rset[DTEXT].y = HEIGHT / 4.5 + env->set.pos;
+	SDL_FreeSurface(env->sdl.text);
+	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \
+		&env->sdl.rset[DTEXT]);
+	env->set.pos = (i == 7) ? 0 : env->set.pos + 50;
 }
 
-void	ft_at_text(t_env *env)
+static void	ft_at_text(t_env *env)
 {
 	int		i;
 	char	*name;
@@ -50,17 +51,16 @@ void	ft_at_text(t_env *env)
 	}
 }
 
-void	ft_copy_text_at(t_env *env, int i)
+void		ft_attributes(t_env *env)
 {
-	if ((env->sdl.tset[TTEXT] = SDL_CreateTextureFromSurface(env->sdl.rend, \
-			env->sdl.text)) == NULL)
+	if ((env->sdl.tset[TINTER] = SDL_CreateTexture(env->sdl.rend, \
+		SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIDTHS, \
+		HEIGHT)) == NULL)
 		ft_error_sdl();
-	SDL_QueryTexture(env->sdl.tset[TTEXT], NULL, NULL, &env->sdl.rset[DTEXT].w\
-		, &env->sdl.rset[DTEXT].h);
-	env->sdl.rset[DTEXT].x = ((WIDTHS / 2) - (env->sdl.rset[DTEXT].w / 2));
-	env->sdl.rset[DTEXT].y = HEIGHT / 4.5 + env->set.pos;
-	SDL_FreeSurface(env->sdl.text);
-	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \
-		&env->sdl.rset[DTEXT]);
-	env->set.pos = (i == 7) ? 0 : env->set.pos + 50;
+	SDL_SetRenderTarget(env->sdl.rend, env->sdl.tset[TINTER]);
+	env->sdl.tset[TIMG] = ft_img_to_tex(env, "img/attributes.bmp");
+	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TIMG], NULL, NULL);
+	ft_at_text(env);
+	SDL_DestroyTexture(env->sdl.tset[TIMG]);
+	SDL_SetRenderTarget(env->sdl.rend, NULL);
 }

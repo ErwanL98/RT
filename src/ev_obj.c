@@ -27,7 +27,8 @@ void	ft_ev_obj_duret(t_env *env)
 		if (env->obj)
 		{
 			i = 0;
-			while (env->set.obj[3] && ++i < (6 * env->set.p[0] + env->set.select))
+			while (env->set.obj[3] && ++i < (6 * env->set.p[0] + \
+											env->set.select))
 				env->set.obj[3] = env->set.obj[3]->next;
 			env->set.tab = ATTRIBUTES;
 			env->set.pos = 0;

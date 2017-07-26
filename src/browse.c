@@ -6,19 +6,17 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 11:37:03 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/12 11:41:39 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:04:46 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos)
+void	ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos, int i)
 {
 	void	(*ft_calc[4])(t_env*, t_vect ray_dir, t_vect ray_pos);
 	t_obj	*lst;
-	int		i;
 
-	i = 0;
 	env->tmp.i = 0;
 	ft_calc[0] = ft_calc_sphere;
 	ft_calc[1] = ft_calc_plane;

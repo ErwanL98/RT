@@ -6,7 +6,7 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:38 by gauffret          #+#    #+#             */
-/*   Updated: 2017/07/19 11:47:39 by gauffret         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:00:18 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		thread(void *envt)
 		while (++env->sdl.pos.x < env->thread.x_end)
 		{
 			ft_init_pixel(env);
-			ft_browse_list(env, env->cam.pixel, env->cam.pos);
+			ft_browse_list(env, env->cam.pixel, env->cam.pos, 0);
 			if (env->tmp.solution >= 0)
 			{
 				ft_light(env);

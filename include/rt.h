@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:43 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 14:02:54 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ typedef struct		s_color
 typedef struct		s_cam
 {
 	t_vect			pos;
+	int				inc;
 	t_vect			dir;
+	t_vect			angles;
 	t_vect			pixel;
 	t_vect			view_plane;
 	t_vect			up;
@@ -95,6 +97,7 @@ typedef struct		s_obj
 	int				tex;
 	int				refle;
 	int				refra;
+	int				refra_trans;
 	int				fin[2];
 	int				finished;
 }					t_obj;
@@ -132,6 +135,7 @@ typedef struct		s_tmp
 	int				tex;
 	int				refle;
 	int				refra;
+	int				refra_trans;
 	int				fin[2];
 	int				finished;
 }					t_tmp;
@@ -248,7 +252,8 @@ double				ft_scalar(t_vect vec1, t_vect vec2);
 t_vect				ft_vect_op(t_vect vec1, char c, t_vect vec2);
 t_vect				ft_vect_op2(double tmp, char c, t_vect vec);
 void				ft_thread(t_env *env);
-void				ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos);
+void				ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos, \
+						int i);
 void				ft_init_start(t_env *env);
 void				ft_display(t_env *env);
 void				ft_init_pixel(t_env *env);
@@ -272,19 +277,12 @@ SDL_Texture			*ft_img_to_tex(t_env *env, char *path);
 void				ft_init_set(t_env *env);
 void				ft_settings(t_env *env);
 void				ft_interface(t_env *env);
-void				ft_text_interface(t_env *env, int text);
-void				ft_text_cases_interface(t_env *env, int text);
 void				ft_event(t_env *env);
 void				ft_check_obj_types2(t_env *env);
 void				ft_s_objects(t_env *env);
-void				ft_text_objects(t_env *env);
-void				ft_text_objects2(t_env *env);
-void				ft_copy_text_obj(t_env *env);
 void				ft_ev_inter(t_env *env);
 void				ft_ev_obj(t_env *env);
 void				ft_attributes(t_env *env);
-void				ft_at_text(t_env *env);
-void				ft_copy_text_at(t_env *env, int i);
 void				ft_ev_at(t_env *env);
 void				ft_add_elem_obj(t_env *env);
 void				ft_delete_elem_obj(t_env *env);
@@ -292,20 +290,11 @@ void				ft_init_draw(t_env *env);
 void				ft_stock_elem(t_env *env);
 void				ft_undelete(t_env *env);
 void				ft_pos_tab(t_env *env);
-void				ft_pos_text(t_env *env);
-void				ft_pos_text2(t_env *env, int i, char **name);
-void				ft_copy_pos_text(t_env *env, int i);
 void				ft_ev_pos(t_env *env);
 void				ft_ev_dir(t_env *env);
 void				ft_dir_tab(t_env *env);
-void				ft_dir_text(t_env *env);
-void				ft_dir_text2(t_env *env, int i, char **name);
-void				ft_copy_dir_text(t_env *env, int i);
 void				ft_ev_col(t_env *env);
 void				ft_col_tab(t_env *env);
-void				ft_col_text(t_env *env);
-void				ft_col_text2(t_env *env, int i, char **name);
-void				ft_copy_col_text(t_env *env, int i);
 void				ft_ev_col_rl(t_env *env);
 void				ft_ev_col_dub(t_env *env);
 void				ft_ev_col_return1(t_env *env);
@@ -325,14 +314,8 @@ void				ft_ev_obj_l(t_env *env);
 void				ft_ev_obj_u(t_env *env);
 void				ft_ev_at_dubrl(t_env *env);
 void				ft_ev_at_return1(t_env *env);
-void				ft_ev_at_return2(t_env *env);
-void				ft_ev_at_return3(t_env *env);
 void				ft_parse_finished(t_env *env, int i);
 void				ft_base_tab(t_env *env);
-void				ft_base_text(t_env *env);
-void				ft_base_text2(t_env *env, char **name, int i, int max);
-void				ft_copy_base_text(t_env *env, int i, int max);
-void				ft_copy_base_text2(t_env *env, int i, int max);
 void				ft_ev_base(t_env *env);
 void				ft_ev_base_rlb(t_env *env);
 void				ft_ev_base_down(t_env *env, int *test);
@@ -341,9 +324,6 @@ void				ft_ev_base_return1(t_env *env);
 void				ft_ev_base_return2(t_env *env);
 void				ft_ev_base_return3(t_env *env);
 void				ft_eff_tab(t_env *env);
-void				ft_eff_text(t_env *env);
-void				ft_eff_text2(t_env *env, int i, char **name);
-void				ft_copy_eff_text(t_env *env, int i);
 void				ft_ev_eff(t_env *env);
 void				ft_ev_eff_rlb(t_env *env);
 void				ft_ev_eff_du(t_env *env);
@@ -367,9 +347,10 @@ t_vect				dup_vect(t_vect src);
 t_color				dup_color(t_color src);
 void				thread_suppr_dup(t_env *env);
 void				ft_parse_tex(t_env *env);
-void				ft_event_cam_rlfb(t_env *env);
+void				ft_event_cam_rlf(t_env *env);
 void				ft_free(t_env *env);
 void				ft_free_obj(t_obj *obj);
 void				ft_free_light(t_light *light);
+void				ft_parse_refraction(t_env *env, int i);
 
 #endif
