@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 11:07:48 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 11:15:42 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 17:42:48 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_ev_pos_rl(t_env *env)
+void		ft_ev_pos_rl(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RIGHT)
 	{
@@ -38,7 +38,7 @@ void	ft_ev_pos_rl(t_env *env)
 	}
 }
 
-void	ft_ev_pos_dub(t_env *env)
+void		ft_ev_pos_dub(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
 		env->set.select = (env->set.select == 11 || env->set.select == 12) ? \
@@ -54,7 +54,27 @@ void	ft_ev_pos_dub(t_env *env)
 	}
 }
 
-void	ft_ev_pos_return1(t_env *env)
+static void	ft_ev_pos_return2(t_env *env)
+{
+	if (env->set.select == 8 || env->set.select == 9)
+	{
+		env->set.obj[3]->pos.y = (env->set.select == 8) ? \
+			env->set.obj[3]->pos.y + env->set.inc : env->set.obj[3]->pos.y - \
+			env->set.inc;
+		SDL_DestroyTexture(env->sdl.draw);
+		ft_browse_pixels(env);
+	}
+	if (env->set.select == 11 || env->set.select == 12)
+	{
+		env->set.obj[3]->pos.z = (env->set.select == 11) ? \
+			env->set.obj[3]->pos.z + env->set.inc : env->set.obj[3]->pos.z - \
+			env->set.inc;
+		SDL_DestroyTexture(env->sdl.draw);
+		ft_browse_pixels(env);
+	}
+}
+
+void		ft_ev_pos_return1(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
 	{
@@ -74,25 +94,5 @@ void	ft_ev_pos_return1(t_env *env)
 			ft_browse_pixels(env);
 		}
 		ft_ev_pos_return2(env);
-	}
-}
-
-void	ft_ev_pos_return2(t_env *env)
-{
-	if (env->set.select == 8 || env->set.select == 9)
-	{
-		env->set.obj[3]->pos.y = (env->set.select == 8) ? \
-			env->set.obj[3]->pos.y + env->set.inc : env->set.obj[3]->pos.y - \
-			env->set.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
-	}
-	if (env->set.select == 11 || env->set.select == 12)
-	{
-		env->set.obj[3]->pos.z = (env->set.select == 11) ? \
-			env->set.obj[3]->pos.z + env->set.inc : env->set.obj[3]->pos.z - \
-			env->set.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:54:10 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/19 15:23:37 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 17:41:45 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_ev_eff_rlb(t_env *env)
+void		ft_ev_eff_rlb(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RIGHT || \
 			env->sdl.event.key.keysym.sym == SDLK_LEFT)
@@ -31,7 +31,7 @@ void	ft_ev_eff_rlb(t_env *env)
 	}
 }
 
-void	ft_ev_eff_du(t_env *env)
+void		ft_ev_eff_du(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
 		env->set.select = (env->set.select == 8 || env->set.select == 9) ? \
@@ -41,7 +41,22 @@ void	ft_ev_eff_du(t_env *env)
 			env->set.select + 6 : env->set.select - 3;
 }
 
-void	ft_ev_eff_return1(t_env *env)
+static void	ft_ev_eff_return2(t_env *env)
+{
+	if ((env->set.select == 8 && env->set.obj[3]->refra < 7) || \
+			(env->set.select == 9 && env->set.obj[3]->refra > 0))
+	{
+		env->set.obj[3]->refra = (env->set.select == 8) ? \
+			env->set.obj[3]->refra + env->set.inc : env->set.obj[3]->refra - \
+			env->set.inc;
+		env->set.obj[3]->refra = (env->set.obj[3]->refra >= 7) ? 7 : \
+			env->set.obj[3]->refra;
+		env->set.obj[3]->refra = (env->set.obj[3]->refra <= 0) ? 0 : \
+			env->set.obj[3]->refra;
+	}
+}
+
+void		ft_ev_eff_return1(t_env *env)
 {
 	if (env->set.select == 2 || env->set.select == 3)
 	{
@@ -62,19 +77,4 @@ void	ft_ev_eff_return1(t_env *env)
 			env->set.obj[3]->refle;
 	}
 	ft_ev_eff_return2(env);
-}
-
-void	ft_ev_eff_return2(t_env *env)
-{
-	if ((env->set.select == 8 && env->set.obj[3]->refra < 7) || \
-			(env->set.select == 9 && env->set.obj[3]->refra > 0))
-	{
-		env->set.obj[3]->refra = (env->set.select == 8) ? \
-			env->set.obj[3]->refra + env->set.inc : env->set.obj[3]->refra - \
-			env->set.inc;
-		env->set.obj[3]->refra = (env->set.obj[3]->refra >= 7) ? 7 : \
-			env->set.obj[3]->refra;
-		env->set.obj[3]->refra = (env->set.obj[3]->refra <= 0) ? 0 : \
-			env->set.obj[3]->refra;
-	}
 }

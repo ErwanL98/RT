@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 11:15:48 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/11 11:26:04 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 17:41:05 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_ev_dir_rl(t_env *env)
+void		ft_ev_dir_rl(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_RIGHT)
 	{
@@ -38,7 +38,7 @@ void	ft_ev_dir_rl(t_env *env)
 	}
 }
 
-void	ft_ev_dir_dub(t_env *env)
+void		ft_ev_dir_dub(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_DOWN)
 		env->set.select = (env->set.select == 11 || env->set.select == 12) ? \
@@ -54,34 +54,7 @@ void	ft_ev_dir_dub(t_env *env)
 	}
 }
 
-void	ft_ev_dir_return1(t_env *env)
-{
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
-	{
-		if (env->set.select == 2 || env->set.select == 3)
-		{
-			env->set.inc = (env->set.select == 2) ? env->set.inc * 2 : \
-				env->set.inc / 2;
-			env->set.inc = (env->set.inc >= 100) ? 100 : env->set.inc;
-			env->set.inc = (env->set.inc <= 1) ? 1 : env->set.inc;
-		}
-		if (env->set.select == 5 || env->set.select == 6)
-		{
-			env->set.obj[3]->angles.x = (env->set.select == 5) ? \
-				env->set.obj[3]->angles.x + env->set.inc : \
-				env->set.obj[3]->angles.x - env->set.inc;
-			env->set.obj[3]->angles.x = (env->set.obj[3]->angles.x >= 360) ? \
-				env->set.obj[3]->angles.x - 360 : env->set.obj[3]->angles.x;
-			env->set.obj[3]->angles.x = (env->set.obj[3]->angles.x <= -360) ? \
-				env->set.obj[3]->angles.x + 360 : env->set.obj[3]->angles.x;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
-		}
-		ft_ev_dir_return2(env);
-	}
-}
-
-void	ft_ev_dir_return2(t_env *env)
+static void	ft_ev_dir_return2(t_env *env)
 {
 	if (env->set.select == 8 || env->set.select == 9)
 	{
@@ -106,5 +79,32 @@ void	ft_ev_dir_return2(t_env *env)
 			env->set.obj[3]->angles.z + 360 : env->set.obj[3]->angles.z;
 		SDL_DestroyTexture(env->sdl.draw);
 		ft_browse_pixels(env);
+	}
+}
+
+void		ft_ev_dir_return1(t_env *env)
+{
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	{
+		if (env->set.select == 2 || env->set.select == 3)
+		{
+			env->set.inc = (env->set.select == 2) ? env->set.inc * 2 : \
+				env->set.inc / 2;
+			env->set.inc = (env->set.inc >= 100) ? 100 : env->set.inc;
+			env->set.inc = (env->set.inc <= 1) ? 1 : env->set.inc;
+		}
+		if (env->set.select == 5 || env->set.select == 6)
+		{
+			env->set.obj[3]->angles.x = (env->set.select == 5) ? \
+				env->set.obj[3]->angles.x + env->set.inc : \
+				env->set.obj[3]->angles.x - env->set.inc;
+			env->set.obj[3]->angles.x = (env->set.obj[3]->angles.x >= 360) ? \
+				env->set.obj[3]->angles.x - 360 : env->set.obj[3]->angles.x;
+			env->set.obj[3]->angles.x = (env->set.obj[3]->angles.x <= -360) ? \
+				env->set.obj[3]->angles.x + 360 : env->set.obj[3]->angles.x;
+			SDL_DestroyTexture(env->sdl.draw);
+			ft_browse_pixels(env);
+		}
+		ft_ev_dir_return2(env);
 	}
 }

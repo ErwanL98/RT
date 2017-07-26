@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 14:02:54 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 18:24:15 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct		s_cam
 	t_vect			pos;
 	int				inc;
 	t_vect			dir;
-	t_vect			angles;
 	t_vect			pixel;
 	t_vect			view_plane;
 	t_vect			up;
@@ -131,7 +130,7 @@ typedef struct		s_tmp
 	t_obj			*current;
 	int				i;
 	double			darkness;
-	double          power;
+	double			power;
 	int				tex;
 	int				refle;
 	int				refra;
@@ -145,13 +144,13 @@ typedef struct		s_light
 	struct s_light	*next;
 	struct s_light	*prev;
 	int				type;
-	t_vect          pos;
-	t_vect          solution_point;
-	t_vect          normal_vect;
-	t_vect          light_vect;
-	double          norme;
-	double          power;
-	t_vect          dir;
+	t_vect			pos;
+	t_vect			solution_point;
+	t_vect			normal_vect;
+	t_vect			light_vect;
+	double			norme;
+	double			power;
+	t_vect			dir;
 	t_color			color;
 }					t_light;
 
@@ -178,6 +177,15 @@ typedef struct		s_parse
 	int				lights;
 }					t_parse;
 
+typedef struct		s_input
+{
+	char			buttons[8];
+	int				mouse_x;
+	int				mouse_y;
+	int				mouse_rel_x;
+	int				mouse_rel_y;
+}					t_input;
+
 typedef struct		s_sdl
 {
 	SDL_Window		*win;
@@ -195,6 +203,7 @@ typedef struct		s_sdl
 	SDL_Rect		pos;
 	SDL_Rect		rt;
 	SDL_Rect		rset[2];
+	t_input			in;
 }					t_sdl;
 
 typedef struct		s_thread
@@ -208,7 +217,7 @@ typedef struct		s_thread
 	int				finished;
 }					t_thread;
 
-typedef struct	s_env
+typedef struct		s_env
 {
 	t_parse			parse;
 	t_sdl			sdl;
@@ -227,7 +236,7 @@ typedef struct	s_env
 void				ft_parse(t_env *env, char *av);
 void				ft_check_types(t_env *env);
 void				ft_fill_cam(t_env *env);
-t_light	*ft_fill_light(t_env *env);
+t_light				*ft_fill_light(t_env *env);
 void				ft_pos_cam(t_env *env, int i);
 void				ft_error(void);
 void				ft_error_file(void);
@@ -257,9 +266,9 @@ void				ft_browse_list(t_env *env, t_vect ray_dir, t_vect ray_pos, \
 void				ft_init_start(t_env *env);
 void				ft_display(t_env *env);
 void				ft_init_pixel(t_env *env);
-void                ft_light(t_env *env);
-void                ft_normal_vect(t_env *env);
-void                ft_normal_sphere(t_env *env);
+void				ft_light(t_env *env);
+void				ft_normal_vect(t_env *env);
+void				ft_normal_sphere(t_env *env);
 void				ft_calc_plane(t_env *env, t_vect ray_dir, t_vect ray_pos);
 void				ft_calc_sphere(t_env *env, t_vect ray_dir, t_vect ray_pos);
 void				ft_calc_cone(t_env *env, t_vect ray_dir, t_vect ray_pos);
@@ -298,16 +307,12 @@ void				ft_col_tab(t_env *env);
 void				ft_ev_col_rl(t_env *env);
 void				ft_ev_col_dub(t_env *env);
 void				ft_ev_col_return1(t_env *env);
-void				ft_ev_col_return2(t_env *env);
-void				ft_ev_col_return3(t_env *env);
 void				ft_ev_pos_rl(t_env *env);
 void				ft_ev_pos_dub(t_env *env);
 void				ft_ev_pos_return1(t_env *env);
-void				ft_ev_pos_return2(t_env *env);
 void				ft_ev_dir_rl(t_env *env);
 void				ft_ev_dir_dub(t_env *env);
 void				ft_ev_dir_return1(t_env *env);
-void				ft_ev_dir_return2(t_env *env);
 void				ft_ev_obj_duret(t_env *env);
 void				ft_ev_obj_rb(t_env *env);
 void				ft_ev_obj_l(t_env *env);
@@ -321,14 +326,12 @@ void				ft_ev_base_rlb(t_env *env);
 void				ft_ev_base_down(t_env *env, int *test);
 void				ft_ev_base_up(t_env *env, int *test);
 void				ft_ev_base_return1(t_env *env);
-void				ft_ev_base_return2(t_env *env);
 void				ft_ev_base_return3(t_env *env);
 void				ft_eff_tab(t_env *env);
 void				ft_ev_eff(t_env *env);
 void				ft_ev_eff_rlb(t_env *env);
 void				ft_ev_eff_du(t_env *env);
 void				ft_ev_eff_return1(t_env *env);
-void				ft_ev_eff_return2(t_env *env);
 void				ft_ev_tex(t_env *env);
 void				ft_tex_tab(t_env *env);
 void				ft_tex_text(t_env *env);
@@ -347,10 +350,12 @@ t_vect				dup_vect(t_vect src);
 t_color				dup_color(t_color src);
 void				thread_suppr_dup(t_env *env);
 void				ft_parse_tex(t_env *env);
-void				ft_event_cam_rlf(t_env *env);
+void				ft_event_cam(t_env *env);
 void				ft_free(t_env *env);
 void				ft_free_obj(t_obj *obj);
 void				ft_free_light(t_light *light);
 void				ft_parse_refraction(t_env *env, int i);
+void				ft_update_mouse(t_env *env);
+void				ft_cam_mouse(t_env *env);
 
 #endif

@@ -6,11 +6,35 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 10:27:33 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 14:43:27 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 18:22:36 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
+
+static void	ft_event_snap(t_env *env)
+{
+	SDL_Texture	*snap;
+	SDL_Surface	*shot;
+
+	if (env->sdl.event.key.keysym.sym == SDLK_c)
+	{
+		if ((snap = SDL_CreateTexture(env->sdl.rend, SDL_PIXELFORMAT_RGBA8888, \
+				SDL_TEXTUREACCESS_TARGET, WIDTHR, HEIGHT)) == NULL)
+			ft_error_sdl();
+		SDL_SetRenderTarget(env->sdl.rend, snap);
+		SDL_RenderCopy(env->sdl.rend, env->sdl.draw, NULL, NULL);
+		if ((shot = SDL_CreateRGBSurface(0, WIDTHR, HEIGHT, 32, 0, 0, 0, 0)) \
+				== NULL)
+			ft_error_sdl();
+		SDL_RenderReadPixels(env->sdl.rend, NULL, \
+			SDL_GetWindowPixelFormat(env->sdl.win), shot->pixels, \
+			shot->pitch);
+		SDL_SaveBMP(shot, "Screenshot.bmp");
+		SDL_FreeSurface(shot);
+		SDL_SetRenderTarget(env->sdl.rend, NULL);
+	}
+}
 
 static void	ft_event_cam_dub(t_env *env)
 {
@@ -34,14 +58,15 @@ static void	ft_event_cam_dub(t_env *env)
 	}
 }
 
-void		ft_event_cam_rlf(t_env *env)
+static void	ft_event_cam_rlf(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS)
 		env->cam.inc += 2;
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
+	{
 		env->cam.inc -= 2;
-	if (env->sdl.event.key.keysym.sym == SDLK_KP_MINUS)
 		env->cam.inc = (env->cam.inc < 10) ? 10 : env->cam.inc;
+	}
 	if (env->sdl.event.key.keysym.sym == SDLK_d)
 	{
 		env->cam.pos.x += env->cam.inc;
@@ -60,5 +85,11 @@ void		ft_event_cam_rlf(t_env *env)
 		SDL_DestroyTexture(env->sdl.draw);
 		ft_browse_pixels(env);
 	}
+}
+
+void		ft_event_cam(t_env *env)
+{
+	ft_event_snap(env);
+	ft_event_cam_rlf(env);
 	ft_event_cam_dub(env);
 }
