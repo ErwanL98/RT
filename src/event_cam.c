@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 10:27:33 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 18:22:36 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/27 12:15:28 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ft_event_snap(t_env *env)
 {
 	SDL_Texture	*snap;
 	SDL_Surface	*shot;
+	char		*name;
 
 	if (env->sdl.event.key.keysym.sym == SDLK_c)
 	{
@@ -28,9 +29,13 @@ static void	ft_event_snap(t_env *env)
 				== NULL)
 			ft_error_sdl();
 		SDL_RenderReadPixels(env->sdl.rend, NULL, \
-			SDL_GetWindowPixelFormat(env->sdl.win), shot->pixels, \
-			shot->pitch);
-		SDL_SaveBMP(shot, "Screenshot.bmp");
+			SDL_GetWindowPixelFormat(env->sdl.win), shot->pixels, shot->pitch);
+		mkdir("./Screenshot", 0775);
+		name = ft_freestrjoin("./Screenshot/Screen Shot ", \
+		ft_create_date(), 2);
+		name = ft_freestrjoin(name, ".bmp", 1);
+		SDL_SaveBMP(shot, name);
+		ft_strdel(&name);
 		SDL_FreeSurface(shot);
 		SDL_SetRenderTarget(env->sdl.rend, NULL);
 	}

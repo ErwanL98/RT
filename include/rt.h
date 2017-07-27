@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 18:24:15 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/27 11:58:02 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # include <SDL_thread.h>
 # include <SDL.h>
 # include <SDL_ttf.h>
+# include <sys/dir.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <time.h>
 # define WIDTHR 640
 # define HEIGHT 480
 # define WIDTHS 300
@@ -76,6 +80,7 @@ typedef struct		s_cam
 	t_vect			pos;
 	int				inc;
 	t_vect			dir;
+	t_vect			angles;
 	t_vect			pixel;
 	t_vect			view_plane;
 	t_vect			up;
@@ -357,5 +362,6 @@ void				ft_free_light(t_light *light);
 void				ft_parse_refraction(t_env *env, int i);
 void				ft_update_mouse(t_env *env);
 void				ft_cam_mouse(t_env *env);
+char				*ft_create_date(void);
 
 #endif

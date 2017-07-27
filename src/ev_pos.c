@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 11:07:48 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 17:42:48 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/27 12:50:05 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,18 @@ static void	ft_ev_pos_return2(t_env *env)
 	}
 	if (env->set.select == 11 || env->set.select == 12)
 	{
-		env->set.obj[3]->pos.z = (env->set.select == 11) ? \
-			env->set.obj[3]->pos.z + env->set.inc : env->set.obj[3]->pos.z - \
-			env->set.inc;
+		if (env->set.obj[3]->type == PLANE)
+		{
+			env->set.obj[3]->angles.h = (env->set.select == 11) ? \
+				env->set.obj[3]->angles.h + env->set.inc : \
+				env->set.obj[3]->angles.h - env->set.inc;
+		}
+		else
+		{
+			env->set.obj[3]->pos.z = (env->set.select == 11) ? \
+				env->set.obj[3]->pos.z + env->set.inc : \
+				env->set.obj[3]->pos.z - env->set.inc;
+		}
 		SDL_DestroyTexture(env->sdl.draw);
 		ft_browse_pixels(env);
 	}

@@ -6,7 +6,7 @@
 #    By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/19 12:54:42 by ele-cren          #+#    #+#              #
-#    Updated: 2017/07/26 14:43:15 by ele-cren         ###   ########.fr        #
+#    Updated: 2017/07/27 11:56:41 by ele-cren         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC = src/check_types.c src/init.c src/main.c src/parse_lights.c \
 	  src/event_obj.c src/set_b.c src/ev_base.c src/set_eff.c src/ev_eff.c \
 	  src/event_obj2.c  src/thread_dup.c \
 	  src/thread_dup2.c src/thread_suppr_dup.c src/event_cam.c src/free.c \
-	  src/c_list2.c
+	  src/c_list2.c src/event_mouse.c src/date.c
 
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 14:25:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 18:30:36 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/27 11:03:07 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,20 @@ void	ft_init_check(t_env *env)
 
 void	ft_init_start(t_env *env)
 {
+	env->cam.dir.x = 0;
+	env->cam.dir.y = 1;
+	env->cam.dir.z = 0;
 	env->cam.right.x = 1;
 	env->cam.right.y = 0;
 	env->cam.right.z = 0;
 	env->cam.up.x = 0;
 	env->cam.up.y = 0;
 	env->cam.up.z = 1;
-	env->cam.dir = ft_normalize(env->cam.dir);
+	env->cam.dir = ft_vect_rot(env->cam.dir, env->cam.angles.y, 2);
+	env->cam.dir = ft_vect_rot(env->cam.dir, env->cam.angles.z, 1);
+	env->cam.dir = (env->cam.dir.x != 1 || env->cam.dir.x != -1) ? \
+		ft_vect_rot(env->cam.dir, env->cam.angles.x, 3) : \
+		ft_vect_rot(env->cam.dir, env->cam.angles.x, 2);
 	env->cam.view_plane.x = env->cam.pos.x + ((env->cam.dir.x * VIEWPLANED) + \
 	(env->cam.up.x * (VIEWPLANEH / 2.0 * F))) - (env->cam.right.x * \
 		(VIEWPLANEW / 2.0 * F));
