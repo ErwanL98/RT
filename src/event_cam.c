@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 10:27:33 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 12:15:28 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 14:04:52 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,28 @@ static void	ft_event_cam_dub(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_w)
 	{
-		env->cam.pos.y += env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.y += env->cam.inc * env->cam.dir.y;
+		env->cam.pos.x += env->cam.inc * env->cam.dir.x;
+		env->cam.pos.z += env->cam.inc * env->cam.dir.z;
+		ft_refresh(env);
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_SPACE)
 	{
-		env->cam.pos.z += env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.z += env->cam.inc * env->cam.up.z;
+		env->cam.pos.x += env->cam.inc * env->cam.up.x;
+		env->cam.pos.y += env->cam.inc * env->cam.up.y;
+		ft_refresh(env);
 	}
-	if (env->sdl.event.key.keysym.sym == SDLK_LCTRL)
+	if (env->sdl.event.key.keysym.sym == SDLK_x)
 	{
-		env->cam.pos.z -= env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.z -= env->cam.inc * env->cam.up.z;
+		env->cam.pos.x -= env->cam.inc * env->cam.up.x;
+		env->cam.pos.y -= env->cam.inc * env->cam.up.y;
+		ft_refresh(env);
 	}
 }
 
-static void	ft_event_cam_rlf(t_env *env)
+static void	ft_event_cam_rpm(t_env *env)
 {
 	if (env->sdl.event.key.keysym.sym == SDLK_KP_PLUS)
 		env->cam.inc += 2;
@@ -74,27 +77,35 @@ static void	ft_event_cam_rlf(t_env *env)
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_d)
 	{
-		env->cam.pos.x += env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.x += env->cam.inc * env->cam.right.x;
+		env->cam.pos.y += env->cam.inc * env->cam.right.y;
+		env->cam.pos.z += env->cam.inc * env->cam.right.z;
+		ft_refresh(env);
 	}
+}
+
+static void	ft_event_cam_lr(t_env *env)
+{
 	if (env->sdl.event.key.keysym.sym == SDLK_a)
 	{
-		env->cam.pos.x -= env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.x -= env->cam.inc * env->cam.right.x;
+		env->cam.pos.y -= env->cam.inc * env->cam.right.y;
+		env->cam.pos.z -= env->cam.inc * env->cam.right.z;
+		ft_refresh(env);
 	}
 	if (env->sdl.event.key.keysym.sym == SDLK_s)
 	{
-		env->cam.pos.y -= env->cam.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		env->cam.pos.y -= env->cam.inc * env->cam.dir.y;
+		env->cam.pos.x -= env->cam.inc * env->cam.dir.x;
+		env->cam.pos.z -= env->cam.inc * env->cam.dir.z;
+		ft_refresh(env);
 	}
 }
 
 void		ft_event_cam(t_env *env)
 {
 	ft_event_snap(env);
-	ft_event_cam_rlf(env);
+	ft_event_cam_rpm(env);
+	ft_event_cam_lr(env);
 	ft_event_cam_dub(env);
 }

@@ -6,7 +6,7 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:38 by gauffret          #+#    #+#             */
-/*   Updated: 2017/07/26 15:23:37 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/27 14:43:40 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		thread(void *envt)
 			ft_browse_list(env, env->cam.pixel, env->cam.pos, 0);
 			if (env->tmp.solution >= 0)
 			{
+				ft_place(env);
 				ft_light(env);
 				ft_shadow(env);
 				color = ft_chose_color(env);

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/30 17:42:29 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 18:46:31 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 15:02:19 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ static void	ft_main_wh(t_env *env)
 		env->sdl.keep = 0;
 	if (env->sdl.event.type == SDL_KEYDOWN)
 	{
+		env->sdl.in.press++;
 		ft_event_cam(env);
 		ft_event(env);
 		if (env->sdl.event.key.keysym.sym == SDLK_ESCAPE)
 			env->sdl.keep = 0;
 	}
+	if (env->sdl.event.type == SDL_KEYUP)
+		env->sdl.in.press = 0;
 	ft_settings(env);
+	ft_filters(env);
 	ft_update_mouse(env);
 	ft_cam_mouse(env);
 	ft_display(env);

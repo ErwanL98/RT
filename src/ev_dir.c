@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 11:15:48 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 17:41:05 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:49:27 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static void	ft_ev_dir_return2(t_env *env)
 			env->set.obj[3]->angles.y - 360 : env->set.obj[3]->angles.y;
 		env->set.obj[3]->angles.y = (env->set.obj[3]->angles.y <= -360) ? \
 			env->set.obj[3]->angles.y + 360 : env->set.obj[3]->angles.y;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 	if (env->set.select == 11 || env->set.select == 12)
 	{
@@ -77,8 +76,7 @@ static void	ft_ev_dir_return2(t_env *env)
 			env->set.obj[3]->angles.z - 360 : env->set.obj[3]->angles.z;
 		env->set.obj[3]->angles.z = (env->set.obj[3]->angles.z <= -360) ? \
 			env->set.obj[3]->angles.z + 360 : env->set.obj[3]->angles.z;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 }
 
@@ -102,8 +100,7 @@ void		ft_ev_dir_return1(t_env *env)
 				env->set.obj[3]->angles.x - 360 : env->set.obj[3]->angles.x;
 			env->set.obj[3]->angles.x = (env->set.obj[3]->angles.x <= -360) ? \
 				env->set.obj[3]->angles.x + 360 : env->set.obj[3]->angles.x;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
+			ft_refresh(env);
 		}
 		ft_ev_dir_return2(env);
 	}

@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 10:51:53 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 17:39:25 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:48:54 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ static void	ft_ev_col_return3(t_env *env)
 				255) ? 255 : env->set.obj[3]->color.blue;
 			env->set.obj[3]->color.blue = (env->set.obj[3]->color.blue <= \
 				0) ? 0 : env->set.obj[3]->color.blue;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
+			ft_refresh(env);
 		}
 	}
 }
@@ -85,8 +84,7 @@ static void	ft_ev_col_return2(t_env *env)
 				255) ? 255 : env->set.obj[3]->color.green;
 			env->set.obj[3]->color.green = (env->set.obj[3]->color.green <= \
 				0) ? 0 : env->set.obj[3]->color.green;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
+			ft_refresh(env);
 		}
 	}
 	ft_ev_col_return3(env);
@@ -108,8 +106,7 @@ void		ft_ev_col_return1(t_env *env)
 					255) ? 255 : env->set.obj[3]->color.red;
 				env->set.obj[3]->color.red = (env->set.obj[3]->color.red <= \
 					0) ? 0 : env->set.obj[3]->color.red;
-				SDL_DestroyTexture(env->sdl.draw);
-				ft_browse_pixels(env);
+				ft_refresh(env);
 			}
 		}
 		ft_ev_col_return2(env);

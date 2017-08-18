@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:00:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 11:58:02 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 15:34:47 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define F 1.0
 # define XINDENT VIEWPLANEW / (double)WIDTHR
 # define YINDENT VIEWPLANEH / (double)HEIGHT
+# define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 enum {SPHERE = 1, PLANE = 2, CYL = 3, CONE = 4, PARA = 5, ELL = 6};
 enum {OBJ = 1, LIGHT = 2, CAM = 3};
@@ -122,6 +123,22 @@ typedef struct		s_set
 	SDL_Color		color[2];
 }					t_set;
 
+typedef struct		s_light
+{
+	struct s_light	*next;
+	struct s_light	*prev;
+	int				type;
+	t_vect			pos;
+	t_vect			solution_point;
+	t_vect			normal_vect;
+	t_vect			light_vect;
+	double			norme;
+	double			power;
+	double			blinn;
+	t_vect			dir;
+	t_color			color;
+}					t_light;
+
 typedef struct		s_tmp
 {
 	t_vect			pos;
@@ -142,22 +159,9 @@ typedef struct		s_tmp
 	int				refra_trans;
 	int				fin[2];
 	int				finished;
-}					t_tmp;
-
-typedef struct		s_light
-{
-	struct s_light	*next;
-	struct s_light	*prev;
-	int				type;
-	t_vect			pos;
 	t_vect			solution_point;
-	t_vect			normal_vect;
-	t_vect			light_vect;
-	double			norme;
-	double			power;
-	t_vect			dir;
-	t_color			color;
-}					t_light;
+	t_light			*light;
+}					t_tmp;
 
 typedef struct		s_check
 {
@@ -189,6 +193,7 @@ typedef struct		s_input
 	int				mouse_y;
 	int				mouse_rel_x;
 	int				mouse_rel_y;
+	int				press;
 }					t_input;
 
 typedef struct		s_sdl
@@ -211,6 +216,13 @@ typedef struct		s_sdl
 	t_input			in;
 }					t_sdl;
 
+typedef struct		s_shadow
+{
+	int				i;
+	t_vect			test;
+	t_vect			solution;
+}					t_shadow;
+
 typedef struct		s_thread
 {
 	SDL_Thread		*t[4];
@@ -222,10 +234,18 @@ typedef struct		s_thread
 	int				finished;
 }					t_thread;
 
+typedef struct		s_filters
+{
+	int				bw[3];
+	int				mo[3];
+	int				neg;
+}					t_filters;
+
 typedef struct		s_env
 {
 	t_parse			parse;
 	t_sdl			sdl;
+	t_shadow		shadow;
 	t_obj			*obj;
 	t_obj			*tmp_obj;
 	t_light			*light;
@@ -236,6 +256,7 @@ typedef struct		s_env
 	t_calc			calc;
 	t_thread		thread;
 	t_set			set;
+	t_filters		filters;
 }					t_env;
 
 void				ft_parse(t_env *env, char *av);
@@ -363,5 +384,15 @@ void				ft_parse_refraction(t_env *env, int i);
 void				ft_update_mouse(t_env *env);
 void				ft_cam_mouse(t_env *env);
 char				*ft_create_date(void);
+void				ft_replace(t_vect *solution, t_vect pos_obj, t_vect angles);
+void				ft_direct(t_vect *solution, t_vect angles);
+void				ft_redirect(t_vect *solution, t_vect angles);
+void    			ft_light_vect(t_env *env, int mode);
+void				ft_place(t_env *env);
+void				ft_loop(t_env *env);
+void				ft_calc_ru(t_env *env);
+t_vect				ft_inv_vect(t_vect vect);
+void				ft_filters(t_env *env);
+void				ft_refresh(t_env *env);
 
 #endif

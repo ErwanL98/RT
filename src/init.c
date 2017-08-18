@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 14:25:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 11:03:07 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 14:56:01 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_init_env(t_env *env)
 	env->tmp_obj = NULL;
 	env->tmp.current = NULL;
 	ft_memset(&env->sdl.in, 0, sizeof(env->sdl.in));
+	ft_memset(&env->filters, 0, sizeof(env->filters));
 }
 
 void	ft_init_tmp(t_env *env)
@@ -78,9 +79,10 @@ void	ft_init_start(t_env *env)
 	env->cam.up.z = 1;
 	env->cam.dir = ft_vect_rot(env->cam.dir, env->cam.angles.y, 2);
 	env->cam.dir = ft_vect_rot(env->cam.dir, env->cam.angles.z, 1);
-	env->cam.dir = (env->cam.dir.x != 1 || env->cam.dir.x != -1) ? \
+	env->cam.dir = (env->cam.dir.x != 1 && env->cam.dir.x != -1) ? \
 		ft_vect_rot(env->cam.dir, env->cam.angles.x, 3) : \
 		ft_vect_rot(env->cam.dir, env->cam.angles.x, 2);
+	ft_calc_ru(env);
 	env->cam.view_plane.x = env->cam.pos.x + ((env->cam.dir.x * VIEWPLANED) + \
 	(env->cam.up.x * (VIEWPLANEH / 2.0 * F))) - (env->cam.right.x * \
 		(VIEWPLANEW / 2.0 * F));

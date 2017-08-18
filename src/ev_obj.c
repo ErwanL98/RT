@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 12:56:28 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 17:42:00 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:50:59 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_ev_obj_duret(t_env *env)
 	if (env->sdl.event.key.keysym.sym == SDLK_UP)
 		env->set.select = (env->set.select == 1) ? (env->set.nb[2] - \
 			env->set.nb[0]) : env->set.select - 1;
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN && env->sdl.in.press == 1)
 	{
 		if (env->obj)
 		{
@@ -93,8 +93,7 @@ void	ft_ev_obj_u(t_env *env)
 		ft_undelete(env);
 		ft_init_set(env);
 		env->set.tab = OBJECTS;
-		SDL_DestroyTexture(env->sdl.draw);
 		env->parse.objects++;
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 }

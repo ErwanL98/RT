@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/22 14:59:00 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 17:06:09 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:23:23 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_interface(t_env *env)
 
 void		ft_ev_inter(t_env *env)
 {
-	if (env->sdl.event.key.keysym.sym == SDLK_RETURN)
+	if (env->sdl.event.key.keysym.sym == SDLK_RETURN && env->sdl.in.press == 1)
 	{
 		env->set.tab = OBJECTS;
 		env->set.select = 1;

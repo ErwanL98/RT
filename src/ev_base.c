@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:51:05 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 12:15:26 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:48:20 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ static void	ft_ev_base_return2(t_env *env)
 			env->set.obj[3]->angle;
 		env->set.obj[3]->angle = (env->set.obj[3]->angle > 90) ? \
 			env->set.obj[3]->angle - 90 : env->set.obj[3]->angle;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 	if (env->set.select == 11)
 		env->set.obj[3]->finished = (env->set.obj[3]->finished == 1) ? 0 : 1;
@@ -110,8 +109,7 @@ static void	ft_ev_base_return2(t_env *env)
 		env->set.obj[3]->fin[0] = (env->set.select == 13) ? \
 			env->set.obj[3]->fin[0] + env->set.inc : env->set.obj[3]->fin[0] \
 			- env->set.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 	ft_ev_base_return3(env);
 }
@@ -134,8 +132,7 @@ void		ft_ev_base_return1(t_env *env)
 			env->set.obj[3]->radius - env->set.inc;
 		env->set.obj[3]->radius = (env->set.obj[3]->radius < 1) ? 1 : \
 			env->set.obj[3]->radius;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 	ft_ev_base_return2(env);
 }

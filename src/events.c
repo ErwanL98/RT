@@ -6,13 +6,13 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:49:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 10:49:44 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 14:06:19 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_event(t_env *env)
+void		ft_event(t_env *env)
 {
 	void	(*tab[8])(t_env *);
 
@@ -27,7 +27,7 @@ void	ft_event(t_env *env)
 	tab[env->set.tab](env);
 }
 
-void	ft_ev_base_return3(t_env *env)
+void		ft_ev_base_return3(t_env *env)
 {
 	if (env->set.obj[3]->finished == 1 && (env->set.select == 16 || \
 			env->set.select == 17))
@@ -35,7 +35,6 @@ void	ft_ev_base_return3(t_env *env)
 		env->set.obj[3]->fin[1] = (env->set.select == 16) ? \
 			env->set.obj[3]->fin[1] + env->set.inc : \
 			env->set.obj[3]->fin[1] - env->set.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 }

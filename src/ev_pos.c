@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 11:07:48 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 12:50:05 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/18 13:51:42 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ static void	ft_ev_pos_return2(t_env *env)
 		env->set.obj[3]->pos.y = (env->set.select == 8) ? \
 			env->set.obj[3]->pos.y + env->set.inc : env->set.obj[3]->pos.y - \
 			env->set.inc;
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 	if (env->set.select == 11 || env->set.select == 12)
 	{
@@ -78,8 +77,7 @@ static void	ft_ev_pos_return2(t_env *env)
 				env->set.obj[3]->pos.z + env->set.inc : \
 				env->set.obj[3]->pos.z - env->set.inc;
 		}
-		SDL_DestroyTexture(env->sdl.draw);
-		ft_browse_pixels(env);
+		ft_refresh(env);
 	}
 }
 
@@ -99,8 +97,7 @@ void		ft_ev_pos_return1(t_env *env)
 			env->set.obj[3]->pos.x = (env->set.select == 5) ? \
 				env->set.obj[3]->pos.x + env->set.inc : env->set.obj[3]->pos.x \
 				- env->set.inc;
-			SDL_DestroyTexture(env->sdl.draw);
-			ft_browse_pixels(env);
+			ft_refresh(env);
 		}
 		ft_ev_pos_return2(env);
 	}

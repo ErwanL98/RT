@@ -6,7 +6,7 @@
 #    By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/19 12:54:42 by ele-cren          #+#    #+#              #
-#    Updated: 2017/07/27 11:56:41 by ele-cren         ###   ########.fr        #
+#    Updated: 2017/08/17 16:20:05 by ele-cren         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,15 @@ SRC = src/check_types.c src/init.c src/main.c src/parse_lights.c \
 	  src/set_a.c src/set_p.c src/set_d.c src/set_c.c src/c_list.c \
 	  src/ev_col.c src/ev_pos.c src/ev_dir.c src/ev_obj.c src/ev_at.c \
 	  src/event_obj.c src/set_b.c src/ev_base.c src/set_eff.c src/ev_eff.c \
-	  src/event_obj2.c  src/thread_dup.c \
-	  src/thread_dup2.c src/thread_suppr_dup.c src/event_cam.c src/free.c \
-	  src/c_list2.c src/event_mouse.c src/date.c
+	  src/event_obj2.c  src/thread_dup.c src/thread_dup2.c \
+	  src/thread_suppr_dup.c src/event_cam.c src/free.c src/c_list2.c \
+	  src/event_mouse.c src/date.c src/calc_again.c src/normal.c src/filters.c
 
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 
 FLAGS = -Wall -Wextra -Werror -I ./SDL2/SDL2/include  \
-		-I $(HOME)/SDL2/TTF/include/SDL2 -I ./libft/include -I ./include -g
+		-I $(HOME)/SDL2/TTF/include/SDL2 -Ofast -I ./libft/include -I \
+		./include -g
 
 LIBS = -L./libft -lft -L $(HOME)/SDL2/TTF/lib -lSDL2_ttf -L \
 	   $(HOME)/SDL2/SDL2/lib -lSDL2 -lSDL2main
