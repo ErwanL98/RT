@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 17:02:17 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/08/16 18:03:16 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 12:59:16 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ void	ft_calc_ru(t_env *env)
 {
 	env->cam.up = ft_vect_rot(env->cam.up, env->cam.angles.z, 1);
 	env->cam.up = ft_vect_rot(env->cam.up, env->cam.angles.y, 2);
-    env->cam.up = (env->cam.up.x != 1 && env->cam.up.x != -1) ? \
+	env->cam.up = (env->cam.up.x != 1 && env->cam.up.x != -1) ? \
 		ft_vect_rot(env->cam.up, env->cam.angles.x, 3) : \
 		ft_vect_rot(env->cam.up, env->cam.angles.x, 1);
 	env->cam.right = ft_vect_rot(env->cam.right, env->cam.angles.x, 3);
 	env->cam.right = ft_vect_rot(env->cam.right, env->cam.angles.z, 1);
-    env->cam.right = (env->cam.right.y != 1 && env->cam.right.y != -1) ? \
+	env->cam.right = (env->cam.right.y != 1 && env->cam.right.y != -1) ? \
 		ft_vect_rot(env->cam.right, env->cam.angles.y, 2) : \
 		ft_vect_rot(env->cam.right, env->cam.angles.y, 3);
 }

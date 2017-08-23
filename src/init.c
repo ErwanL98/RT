@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 14:25:36 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/08/18 14:56:01 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 14:20:05 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_init_env(t_env *env)
 {
 	env->check.direction = 0;
 	env->cam.inc = 50;
+	env->amb = 0;
+	env->amb_coef = 1;
 	env->check.position = 0;
 	env->check.radius = 0;
 	env->check.color = 0;
@@ -24,6 +26,8 @@ void	ft_init_env(t_env *env)
 	env->parse.objects = 0;
 	env->parse.lights = 0;
 	env->parse.cam = 0;
+	env->parse.nb_line = 0;
+	env->parse.com = 0;
 	env->parse.line = NULL;
 	env->obj = NULL;
 	env->light = NULL;

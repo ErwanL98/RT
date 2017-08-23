@@ -6,13 +6,13 @@
 /*   By: mawasche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 14:31:31 by mawasche          #+#    #+#             */
-/*   Updated: 2017/07/27 17:01:53 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 19:17:10 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void	ft_shadow(t_env *env)
+void		ft_shadow(t_env *env)
 {
 	t_obj	*lst;
 	int		power;
@@ -25,8 +25,7 @@ void	ft_shadow(t_env *env)
 	while (env->light)
 	{
 		ft_loop(env);
-		if (env->shadow.solution.h < env->light->norme)
-			power += 1;
+		power += (env->calc.solution < 0.001) ? 1 : 0;
 		env->obj = lst;
 		env->light = env->light->next;
 	}
@@ -35,7 +34,7 @@ void	ft_shadow(t_env *env)
 	env->light = tmp;
 }
 
-void	ft_calc(t_env *env, t_vect test)
+void		ft_calc(t_env *env, t_vect test)
 {
 	void	(*ft_calc[4])(t_env*, t_vect ray_dir, t_vect ray_pos);
 
@@ -46,7 +45,7 @@ void	ft_calc(t_env *env, t_vect test)
 	ft_calc[env->obj->type - 1](env, test, env->light->solution_point);
 }
 
-void	ft_loop(t_env *env)
+static void	ft_init_light(t_env *env)
 {
 	env->shadow.i = 0;
 	ft_light_vect(env, 1);
@@ -54,10 +53,15 @@ void	ft_loop(t_env *env)
 	pow(env->light->light_vect.y, 2) + pow(env->light->light_vect.z, 2));
 	env->shadow.test = ft_normalize(env->light->light_vect);
 	env->calc.solution = -1;
+}
+
+void		ft_loop(t_env *env)
+{
+	ft_init_light(env);
 	while (env->obj)
 	{
 		ft_calc(env, env->shadow.test);
-		if (env->calc.solution > 0.001 && env->tmp.i != env->shadow.i && env->obj->finished != 2)
+		if (env->calc.solution > 0.0001 && env->tmp.i != env->shadow.i)
 		{
 			env->shadow.solution.x = env->calc.solution * env->shadow.test.x;
 			env->shadow.solution.y = env->calc.solution * env->shadow.test.y;
@@ -67,7 +71,8 @@ void	ft_loop(t_env *env)
 				2));
 			if (env->shadow.solution.h < env->light->norme)
 			{
-				env->tmp.darkness = 0.3;
+				env->tmp.darkness = (env->obj->refra_trans == 0) ? 0.3\
+				: (400 + env->obj->refra_trans * 1.0) / 1000;
 				break ;
 			}
 		}

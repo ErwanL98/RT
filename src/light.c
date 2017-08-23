@@ -6,13 +6,13 @@
 /*   By: mawasche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 12:37:30 by mawasche          #+#    #+#             */
-/*   Updated: 2017/08/17 17:59:04 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 19:08:51 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void		ft_spotlight(t_env *env)
+void	ft_spotlight(t_env *env)
 {
 	double			tmp;
 	static double	test = 0;
@@ -30,13 +30,14 @@ void		ft_spotlight(t_env *env)
 	test = tmp;
 }
 
-void		ft_light(t_env *env)
+void	ft_light(t_env *env)
 {
 	env->tmp.solution_point = env->light->solution_point;
 	env->tmp.light = env->light;
 	env->tmp.power = 0;
 	while (env->light)
 	{
+		ft_place(env);
 		ft_light_vect(env, 0);
 		ft_normal_vect(env);
 		if (env->tmp.current->type != SPHERE)
@@ -53,6 +54,6 @@ void		ft_light(t_env *env)
 		env->light = env->light->next;
 	}
 	env->light = env->tmp.light;
-	env->light->power = (env->tmp.power <= 1) ? env->tmp.power : 1;
+	env->tmp.power = (env->tmp.power <= 1) ? env->tmp.power : 1;
 	env->light->solution_point = env->tmp.solution_point;
 }

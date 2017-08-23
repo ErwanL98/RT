@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 10:27:33 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/08/18 14:04:52 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 13:32:31 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static void	ft_event_cam_lr(t_env *env)
 void		ft_event_cam(t_env *env)
 {
 	ft_event_snap(env);
+	ft_event_save(env);
 	ft_event_cam_rpm(env);
 	ft_event_cam_lr(env);
 	ft_event_cam_dub(env);

@@ -6,25 +6,24 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 14:03:11 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 12:20:56 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 20:23:52 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-static void	ft_copy_base_text2(t_env *env, int i, int max)
+static void	ft_copy_base_text2(t_env *env, int i)
 {
 	env->sdl.rset[DTEXT].y = HEIGHT / 4 + env->set.pos;
 	SDL_FreeSurface(env->sdl.text);
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \
 			&env->sdl.rset[DTEXT]);
-	if ((i % 3 == 0) || i == 1 || i == 4 || i == 7 || i == 11 || i == 14)
-		env->set.pos = (max == 17) ? env->set.pos + 30 : env->set.pos + 40;
-	env->set.pos = ((i % 11 == 0 && max == 11) || (i % 17 == 0 && max == 17)) \
-		? 0 : env->set.pos;
+	if ((i % 3 == 0) || i == 1 || i == 4 || i == 7)
+		env->set.pos += 40;
+	env->set.pos = (i % 9 == 0) ? 0 : env->set.pos;
 }
 
-static void	ft_copy_base_text(t_env *env, int i, int max)
+static void	ft_copy_base_text(t_env *env, int i)
 {
 	if ((env->sdl.tset[TTEXT] = SDL_CreateTextureFromSurface(env->sdl.rend, \
 				env->sdl.text)) == NULL)
@@ -32,60 +31,27 @@ static void	ft_copy_base_text(t_env *env, int i, int max)
 	SDL_QueryTexture(env->sdl.tset[TTEXT], NULL, NULL, &env->sdl.rset[DTEXT].w\
 		, &env->sdl.rset[DTEXT].h);
 	env->sdl.rset[DTEXT].x = WIDTHS / 2 - (env->sdl.rset[DTEXT].w / 2);
-	if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9 || i == 13 || \
-			i == 14 || i == 16 || i == 17)
-		env->sdl.rset[DTEXT].x = (i == 2 || i == 5 || i == 8 || i == 13 || i ==\
-			16) ? env->sdl.rset[DTEXT].x - 20 : env->sdl.rset[DTEXT].x + 20;
-	else if (i == 10 || i == 11)
-	{
-		if (max == 17)
-			env->sdl.rset[DTEXT].x = (i == 10) ? env->sdl.rset[DTEXT].x - 45 : \
-				env->sdl.rset[DTEXT].x + 45;
-		else
-			env->sdl.rset[DTEXT].x = (i == 10) ? env->sdl.rset[DTEXT].x - 62 : \
-				env->sdl.rset[DTEXT].x + 62;
-	}
-	ft_copy_base_text2(env, i, max);
+	if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9)
+		env->sdl.rset[DTEXT].x = (i == 2 || i == 5 || i == 8) ? \
+			env->sdl.rset[DTEXT].x - 20 : env->sdl.rset[DTEXT].x + 20;
+	ft_copy_base_text2(env, i);
 }
 
-static void	ft_base_text2(t_env *env, char **name, int i, int max)
+static void	ft_base_text2(t_env *env, char **name, int i)
 {
-	*name = (i == 10) ? ft_strdup("Object : ") : *name;
-	if (i == 11)
-	{
-		*name = (env->set.obj[3]->finished == 0) ? \
-			ft_strdup("Not Finished") : \
-			ft_strdup("Finished");
-	}
-	if (max == 17)
-	{
-		*name = (i == 12) ? ft_freestrjoin("Min : ", \
-			ft_itoa(env->set.obj[3]->fin[0]), 2) : *name;
-		*name = (i == 13) ? ft_strdup("+") : *name;
-		*name = (i == 14) ? ft_strdup("-") : *name;
-		*name = (i == 15) ? ft_freestrjoin("Max : ", \
-			ft_itoa(env->set.obj[3]->fin[1]), 2) : *name;
-		*name = (i == 16) ? ft_strdup("+") : *name;
-		*name = (i == 17) ? ft_strdup("-") : *name;
-		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[2], *name, \
-			env->set.color[(env->set.select == i) ? 1 : 0]);
-	}
-	else
-		env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], *name, \
-			env->set.color[(env->set.select == i) ? 1 : 0]);
-	ft_copy_base_text(env, i, max);
+	env->sdl.text = TTF_RenderText_Blended(env->sdl.font[1], *name, \
+		env->set.color[(env->set.select == i) ? 1 : 0]);
+	ft_copy_base_text(env, i);
 }
 
 static void	ft_base_text(t_env *env)
 {
 	int		i;
-	int		max;
 	char	*name;
 
 	name = NULL;
 	i = 0;
-	max = (env->set.obj[3]->finished == 0) ? 11 : 17;
-	while (++i <= max)
+	while (++i <= 9)
 	{
 		name = (i == 1) ? ft_freestrjoin("Increment :  ", \
 			ft_itoa(env->set.inc), 2) : name;
@@ -99,7 +65,7 @@ static void	ft_base_text(t_env *env)
 			ft_itoa(env->set.obj[3]->angle), 2) : name;
 		name = (i == 8) ? ft_strdup("+") : name;
 		name = (i == 9) ? ft_strdup("-") : name;
-		ft_base_text2(env, &name, i, max);
+		ft_base_text2(env, &name, i);
 		ft_strdel(&name);
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:45 by gauffret          #+#    #+#             */
-/*   Updated: 2017/08/18 15:35:07 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 18:23:15 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-t_color		dup_color(t_color src)
+t_color	dup_color(t_color src)
 {
 	t_color	dest;
 
@@ -23,7 +23,7 @@ t_color		dup_color(t_color src)
 	return (dest);
 }
 
-t_vect		dup_vect(t_vect src)
+t_vect	dup_vect(t_vect src)
 {
 	t_vect	dest;
 
@@ -34,7 +34,7 @@ t_vect		dup_vect(t_vect src)
 	return (dest);
 }
 
-t_calc		dup_calc(t_calc src)
+t_calc	dup_calc(t_calc src)
 {
 	t_calc	dest;
 
@@ -48,7 +48,7 @@ t_calc		dup_calc(t_calc src)
 	return (dest);
 }
 
-t_cam		dup_cam(t_cam src)
+t_cam	dup_cam(t_cam src)
 {
 	t_cam	cam;
 
@@ -61,20 +61,6 @@ t_cam		dup_cam(t_cam src)
 	return (cam);
 }
 
-t_filters	dup_filters(t_filters filt)
-{
-	t_filters	new;
-
-	new.bw[0] = filt.bw[0];
-	new.bw[1] = filt.bw[1];
-	new.bw[2] = filt.bw[2];
-	new.mo[0] = filt.mo[0];
-	new.mo[1] = filt.mo[1];
-	new.mo[2] = filt.mo[2];
-	new.neg = filt.neg;
-	return (new);
-}
-
 t_env	*dup_struct(t_env *src, int id)
 {
 	t_env	*dest;
@@ -82,7 +68,6 @@ t_env	*dup_struct(t_env *src, int id)
 	if (!(dest = (t_env *)malloc(sizeof(t_env))))
 		ft_error();
 	dest->sdl.format = src->sdl.format;
-	dest->filters = dup_filters(src->filters);
 	dest->sdl.pixels = src->sdl.pixels;
 	dest->thread.id = id;
 	dest->cam = dup_cam(src->cam);
@@ -92,5 +77,15 @@ t_env	*dup_struct(t_env *src, int id)
 	dest->obj = dup_obj(src->obj, src);
 	dest->light = NULL;
 	dest->light = dup_light(src->light);
+	dest->filters = dup_filters(src->filters);
+	dest->amb = src->amb;
+	dest->amb_coef = src->amb_coef;
+	dest->parse.objects = src->parse.objects;
+	dest->parse.lights = src->parse.lights;
+	dest->sdl.surf[0] = src->sdl.surf[0];
+	dest->sdl.surf[1] = src->sdl.surf[1];
+	dest->sdl.surf[2] = src->sdl.surf[2];
+	dest->sdl.surf[3] = src->sdl.surf[3];
+	dest->sdl.surf[4] = src->sdl.surf[4];
 	return (dest);
 }

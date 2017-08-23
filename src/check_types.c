@@ -14,17 +14,17 @@
 
 void	ft_check_obj_types(t_env *env)
 {
-	if (ft_strequ(env->parse.split[0], "sphere") == 1)
+	if (ft_strequ(env->parse.split[0], "<sphere>") == 1)
 	{
 		env->parse.type_obj = SPHERE;
 		env->parse.objects++;
 	}
-	else if (ft_strequ(env->parse.split[0], "plane") == 1)
+	else if (ft_strequ(env->parse.split[0], "<plane>") == 1)
 	{
 		env->parse.type_obj = PLANE;
 		env->parse.objects++;
 	}
-	else if (ft_strequ(env->parse.split[0], "cylinder") == 1)
+	else if (ft_strequ(env->parse.split[0], "<cylinder>") == 1)
 	{
 		env->parse.type_obj = CYL;
 		env->parse.objects++;
@@ -34,58 +34,62 @@ void	ft_check_obj_types(t_env *env)
 
 void	ft_check_obj_types2(t_env *env)
 {
-	if (ft_strequ(env->parse.split[0], "cone") == 1)
+	if (ft_strequ(env->parse.split[0], "<cone>") == 1)
 	{
 		env->parse.type_obj = CONE;
 		env->parse.objects++;
 	}
-	else if (ft_strequ(env->parse.split[0], "parabole"))
+	else if (ft_strequ(env->parse.split[0], "<parabole>"))
 	{
 		env->parse.type_obj = PARA;
 		env->parse.objects++;
 	}
-	else if (ft_strequ(env->parse.split[0], "ellipse"))
+	else if (ft_strequ(env->parse.split[0], "<ellipse>"))
 	{
 		env->parse.type_obj = ELL;
 		env->parse.objects++;
 	}
 }
 
-void	ft_check_types(t_env *env)
+int		ft_check_types(t_env *env)
 {
-	if (ft_strequ("camera", env->parse.split[0]) == 1)
+	if (!ft_strcmp("<camera>", env->parse.split[0]) && !env->parse.type)
 	{
 		env->parse.type = CAM;
 		env->parse.cam++;
+		return (1);
 	}
-	else if (ft_strequ("objects", env->parse.split[0]) == 1)
+	else if (!ft_strcmp("<objects>", env->parse.split[0]) && !env->parse.type)
+	{
 		env->parse.type = OBJ;
-	else if (ft_strequ("light", env->parse.split[0]) == 1)
+		return (1);
+	}
+	else if (!ft_strcmp("<light>", env->parse.split[0]) && !env->parse.type)
 	{
 		env->parse.type = LIGHT;
-		env->parse.lights++;
+		return (1);
 	}
-	if (ft_strequ("/camera", env->parse.split[0]) == 1 || \
-			ft_strequ("/light", env->parse.split[0]) == 1 || \
-			ft_strequ("/objects", env->parse.split[0]) == 1)
-	{
-		(ft_strequ("/camera", env->parse.split[0]) == 1 && (env->check.position\
-						== 0 || env->check.direction == 0)) ? ft_error() : "";
-		env->parse.type = 0;
-		ft_init_check(env);
-	}
+	else
+		ft_error_check_file(env);
+	return (0);
 }
 
 void	ft_check_light_types(t_env *env)
 {
-	if (ft_strequ(env->parse.split[0], "basic"))
+	if (!ft_strcmp(env->parse.split[0], "<basic>") && env->parse.tablen == 1)
 	{
 		env->parse.type_light = BASIC;
 		env->parse.lights++;
 	}
-	else if (ft_strequ(env->parse.split[0], "spotlight"))
+	else if (ft_strequ(env->parse.split[0], "<spotlight>") && \
+			env->parse.tablen == 1)
 	{
 		env->parse.type_light = SPOT;
 		env->parse.lights++;
 	}
+	else if ((ft_strequ(env->parse.split[0], "</basic>") || \
+	ft_strequ(env->parse.split[0], "</spotlight>")) && env->parse.tablen == 1)
+		env->parse.type_light = 0;
+	else
+		ft_error_check_file(env);
 }

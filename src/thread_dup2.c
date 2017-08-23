@@ -6,15 +6,16 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 13:18:48 by gauffret          #+#    #+#             */
-/*   Updated: 2017/08/17 16:03:50 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 13:00:19 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-static t_obj	*dup_obj2(t_obj *new, t_obj *link_src, \
+static t_obj	*dup_obj2(t_obj *src, t_obj *new, t_obj *link_src, \
 							t_obj *link_dest)
 {
+	(void)src;
 	if (!(new = (t_obj *)malloc(sizeof(t_obj))))
 		ft_error();
 	if (link_dest)
@@ -31,6 +32,7 @@ static t_obj	*dup_obj2(t_obj *new, t_obj *link_src, \
 	new->dir = dup_vect(link_src->dir);
 	new->tex = link_src->tex;
 	new->refra = link_src->refra;
+	new->refra_trans = link_src->refra_trans;
 	new->refle = link_src->refle;
 	new->fin[0] = link_src->fin[0];
 	new->fin[1] = link_src->fin[1];
@@ -50,7 +52,7 @@ t_obj			*dup_obj(t_obj *src, t_env *env)
 	new = NULL;
 	while (link_src && env->parse.objects > 0)
 	{
-		new = dup_obj2(new, link_src, link_dest);
+		new = dup_obj2(src, new, link_src, link_dest);
 		if (!start)
 		{
 			start = new;

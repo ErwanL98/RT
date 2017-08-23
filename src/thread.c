@@ -6,13 +6,13 @@
 /*   By: gauffret <gauffret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:47:38 by gauffret          #+#    #+#             */
-/*   Updated: 2017/07/27 14:43:40 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 12:58:16 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-t_env	*ft_init_browse_pixels(t_env *env)
+t_env		*ft_init_browse_pixels(t_env *env)
 {
 	ft_init_draw(env);
 	ft_init_start(env);
@@ -26,10 +26,9 @@ t_env	*ft_init_browse_pixels(t_env *env)
 	return (env);
 }
 
-int		thread(void *envt)
+int			thread(void *envt)
 {
-	Uint32	color;
-	t_env	*env;
+	t_env		*env;
 
 	env = (t_env *)envt;
 	env->sdl.pos.y = env->thread.y_start;
@@ -42,12 +41,12 @@ int		thread(void *envt)
 			ft_browse_list(env, env->cam.pixel, env->cam.pos, 0);
 			if (env->tmp.solution >= 0)
 			{
-				ft_place(env);
-				ft_light(env);
-				ft_shadow(env);
-				color = ft_chose_color(env);
-				env->sdl.pixels[env->sdl.pos.x + \
-										(env->sdl.pos.y * WIDTHR)] = color;
+				env->tmp.ray_pos = env->cam.pos;
+				env->tmp.ray_dir = env->cam.pixel;
+				ft_option_visu(env);
+				env->sdl.pixels[env->sdl.pos.x + (env->sdl.pos.y * WIDTHR)] =\
+					SDL_MapRGBA(env->sdl.format, env->tmp.color.red, \
+					env->tmp.color.green, env->tmp.color.blue, 255);
 			}
 		}
 	}
@@ -55,19 +54,19 @@ int		thread(void *envt)
 	return (1);
 }
 
-void	init_limits(t_env *env)
+void		init_limits(t_env *env)
 {
 	env->thread.y_start = ((env->thread.id == 0 || env->thread.id == 1) \
-							? (-1) : (HEIGHT / 2 - 2));
+		? (-1) : (HEIGHT / 2 - 2));
 	env->thread.y_end = ((env->thread.id == 0 || env->thread.id == 1) \
-							? ((HEIGHT / 2) + 1) : (HEIGHT));
+		? ((HEIGHT / 2) + 1) : (HEIGHT));
 	env->thread.x_start = ((env->thread.id == 0 || env->thread.id == 2) \
-							? (-1) : ((WIDTHR / 2) - 2));
+		? (-1) : ((WIDTHR / 2) - 2));
 	env->thread.x_end = ((env->thread.id == 0 || env->thread.id == 2) \
-							? ((WIDTHR / 2) + 1) : (WIDTHR));
+		? ((WIDTHR / 2) + 1) : (WIDTHR));
 }
 
-void	ft_browse_pixels(t_env *env)
+void		ft_browse_pixels(t_env *env)
 {
 	t_env	*e[4];
 	int		i;

@@ -6,108 +6,108 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/12 11:13:20 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/08/18 11:14:56 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 21:09:30 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <rt.h>
 
-void		ft_check_objects(t_env *env)
+static void	ft_check_objects3(t_env *env)
 {
-	ft_check_obj_types(env);
-	if (((env->parse.type_obj == SPHERE && !ft_strequ(env->parse.split[0], \
-		"sphere")) || (env->parse.type_obj == PLANE && \
-		!ft_strequ(env->parse.split[0], "plane")) || \
-		(env->parse.type_obj == CYL && !ft_strequ(env->parse.split[0], \
-		"cylinder")) || (env->parse.type_obj == CONE && \
-		!ft_strequ(env->parse.split[0], "cone")) || (env->parse.\
-		type_obj == PARA && !ft_strequ(env->parse.split[0], "parabole")) || \
-		(env->parse.type_obj == ELL && !ft_strequ(env->parse.split[0], \
-		"ellipse"))) && env->parse.type == OBJ)
-		ft_parse_objects(env);
-	ft_end_obj(env);
+	if (env->parse.tablen != 1)
+	{
+		if (ft_strcmp(env->parse.split[0], "<attribute") && \
+			ft_strcmp(env->parse.split[0], "<angles") && \
+			ft_strcmp(env->parse.split[0], "<color") && \
+			ft_strcmp(env->parse.split[0], "<finished") && \
+			ft_strcmp(env->parse.split[0], "<index") && \
+			ft_strcmp(env->parse.split[0], "<position"))
+			ft_error_check_file(env);
+	}
 }
 
-static void	ft_parse_objects2(t_env *env, int i)
+static void	ft_check_objects2(t_env *env)
 {
-	if (ft_strequ(env->parse.split[0], "color") == 1)
-		ft_parse_color(env, i);
-	else if (ft_strequ(env->parse.split[0], "position") == 1)
-		ft_parse_position(env, i);
-	else if (ft_strequ(env->parse.split[0], "angles") == 1)
-		ft_parse_angles(env, i);
-	else if (ft_strequ(env->parse.split[0], "reflexion") && 2 <= \
-			env->parse.tablen)
+	if (env->parse.tablen == 1)
 	{
-		env->tmp.refle = ft_atoi(env->parse.split[2]);
-		(env->tmp.refle < 0 || env->tmp.refle > 100) ? ft_error() : "";
+		if ((env->parse.type_obj) && ((!ft_strcmp(env->parse.split[0], \
+		"</sphere>") && env->parse.type_obj == SPHERE) || \
+		(!ft_strcmp(env->parse.split[0], "</plane>") && env->parse.type_obj \
+		== PLANE) || (!ft_strcmp(env->parse.split[0], "</cylinder>") && \
+		env->parse.type_obj == CYL) || (!ft_strcmp(env->parse.split[0], \
+		"</cone>") && env->parse.type_obj == CONE) || \
+		(!ft_strcmp(env->parse.split[0], "</parabole>") && \
+		env->parse.type_obj == PARA) || (!ft_strcmp(env->parse.split[0], \
+		"</ellipse>") && env->parse.type_obj == ELL)))
+			ft_end_obj(env);
+		else if ((!env->parse.type_obj) && (!ft_strcmp(env->parse.split[0], \
+		"<sphere>") || !ft_strcmp(env->parse.split[0], "<plane>") \
+		|| !ft_strcmp(env->parse.split[0], "<cylinder>") || \
+		!ft_strcmp(env->parse.split[0], "<cone>") || \
+		!ft_strcmp(env->parse.split[0], "<parabole>") || \
+		!ft_strcmp(env->parse.split[0], "<ellipse>")))
+			ft_check_obj_types(env);
+		else if (!env->parse.type_obj && !ft_strcmp(env->parse.split[0], \
+		"</objects>") && env->parse.tablen == 1)
+			env->parse.type = 0;
+		else
+			ft_error_check_file(env);
 	}
-	else if (ft_strequ(env->parse.split[0], "refraction"))
-		ft_parse_refraction(env, i);
-	else if (ft_strequ(env->parse.split[0], "texture") && 2 <= \
-			env->parse.tablen)
-		ft_parse_tex(env);
-	else if (ft_strequ(env->parse.split[0], "finished"))
-	{
-		env->tmp.finished = 1;
-		ft_parse_finished(env, i);
-	}
+}
+
+void		ft_check_objects(t_env *env)
+{
+	if (!ft_strcmp(env->parse.split[0], "<objects>"))
+		ft_error_check_file(env);
+	ft_check_objects2(env);
+	ft_check_objects3(env);
+	if (env->parse.type == OBJ && env->parse.tablen != 1 && \
+		(env->parse.type_obj == SPHERE || env->parse.type_obj == PLANE \
+		|| env->parse.type_obj == CYL || env->parse.type_obj == CONE || \
+		env->parse.type_obj == PARA || env->parse.type_obj == ELL))
+		ft_parse_objects(env);
 }
 
 void		ft_parse_objects(t_env *env)
 {
+	if (!ft_strcmp(env->parse.split[0], "<angles"))
+		ft_parse_angles(env, 1, ft_create_tab_verif());
+	else if (!ft_strcmp(env->parse.split[0], "<attribute"))
+		ft_parse_attribute(env, 1);
+	else if (!ft_strcmp(env->parse.split[0], "<color"))
+		ft_parse_color(env, 1, ft_create_tab_verif());
+	else if (!ft_strcmp(env->parse.split[0], "<finished"))
+		ft_parse_finished(env, 1);
+	else if (!ft_strcmp(env->parse.split[0], "<index"))
+	{
+		env->tmp.refle = 0;
+		env->tmp.refra = 0;
+		env->tmp.refra = 0;
+		ft_parse_index(env, 1, ft_create_tab_verif());
+	}
+	else if (ft_strequ(env->parse.split[0], "<position") == 1)
+		ft_parse_position(env, 1);
+	else
+		ft_error_check_file(env);
+}
+
+char		*ft_strtolower(char *str)
+{
 	int		i;
+	char	*res;
 
 	i = 0;
-	if ((env->parse.type_obj == SPHERE || env->parse.type_obj == CYL) && \
-			ft_strequ(env->parse.split[0], "radius") && 2 <= env->parse.tablen)
+	res = NULL;
+	res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str && str[i])
 	{
-		env->check.radius = 1;
-		((env->tmp.radius = ft_atoi(env->parse.split[2])) == 0) ? \
-															ft_error() : "";
-	}
-	else if ((env->parse.type_obj == CONE && \
-		ft_strequ(env->parse.split[0], "angle")) && 2 <= env->parse.tablen)
-	{
-		env->check.angle = 1;
-		env->tmp.angle = ft_atoi(env->parse.split[2]);
-		(env->tmp.angle <= 0 || env->tmp.angle >= 180) ? ft_error() : "";
-	}
-	else
-		ft_parse_objects2(env, i);
-}
-
-void		ft_parse_tex(t_env *env)
-{
-	if (ft_strequ(env->parse.split[2], "checker"))
-		env->tmp.tex = CHECKER;
-	else if (ft_strequ(env->parse.split[2], "moon"))
-		env->tmp.tex = MOON;
-	else if (ft_strequ(env->parse.split[2], "sun"))
-		env->tmp.tex = SUN;
-	else if (ft_strequ(env->parse.split[2], "earth"))
-		env->tmp.tex = EARTH;
-	else if (ft_strequ(env->parse.split[2], "garden"))
-		env->tmp.tex = GARDEN;
-}
-
-void		ft_parse_refraction(t_env *env, int i)
-{
-	while (env->parse.split[i])
-	{
-		if (ft_strequ(env->parse.split[i], "refra") && (i + 2) <= \
-				env->parse.tablen)
-		{
-			env->tmp.refra = ft_atoi(env->parse.split[i + 2]);
-			(env->tmp.refra < 0 || env->tmp.refra > 7) ? ft_error() : "";
-		}
-		if (ft_strequ(env->parse.split[i], "trans") && (i + 2) <= \
-				env->parse.tablen)
-		{
-			env->tmp.refra = ft_atoi(env->parse.split[i + 2]);
-			(env->tmp.refra_trans < 0 || env->tmp.refra_trans > 100) ? \
-				ft_error() : "";
-		}
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			res[i] = str[i] + 32;
+		else
+			res[i] = str[i];
 		i++;
 	}
+	ft_strdel(&str);
+	res[i] = '\0';
+	return (res);
 }

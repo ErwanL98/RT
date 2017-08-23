@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 13:42:47 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/27 12:49:46 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/07/26 12:39:20 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,8 @@ static void	ft_pos_text2(t_env *env, int i, char **name)
 {
 	*name = (i == 8) ? ft_strdup("+") : *name;
 	*name = (i == 9) ? ft_strdup("-") : *name;
-	if (i == 10)
-	{
-		*name = (env->set.obj[3]->type == PLANE) ? ft_freestrjoin("PosZ :  ", \
-			ft_itoa(env->set.obj[3]->angles.h), 2) : ft_freestrjoin("PosZ :  ",\
-		   	ft_itoa(env->set.obj[3]->pos.z), 2);
-	}
+	*name = (i == 10) ? ft_freestrjoin("PosZ :  ", \
+		ft_itoa(env->set.obj[3]->pos.z), 2) : *name;
 	*name = (i == 11) ? ft_strdup("+") : *name;
 	*name = (i == 12) ? ft_strdup("-") : *name;
 }

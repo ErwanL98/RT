@@ -12,6 +12,16 @@
 
 #include <rt.h>
 
+void	ft_error_check_file(t_env *env)
+{
+	ft_putstr_fd("Error in file ", 2);
+	ft_putstr_fd(env->parse.file, 2);
+	ft_putstr_fd(" at line ", 2);
+	ft_putnbr_fd(env->parse.nb_line, 2);
+	ft_putstr_fd(".\n", 2);
+	exit(1);
+}
+
 void	ft_error(void)
 {
 	ft_putendl("Error scene !");
@@ -20,7 +30,7 @@ void	ft_error(void)
 
 void	ft_error_file(void)
 {
-	perror("Error ");
+	perror("Error file");
 	exit(1);
 }
 

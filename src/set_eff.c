@@ -6,7 +6,7 @@
 /*   By: ele-cren <ele-cren@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 11:24:16 by ele-cren          #+#    #+#             */
-/*   Updated: 2017/07/26 12:29:08 by ele-cren         ###   ########.fr       */
+/*   Updated: 2017/08/23 13:26:54 by ele-cren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ static void	ft_copy_eff_text(t_env *env, int i)
 	SDL_QueryTexture(env->sdl.tset[TTEXT], NULL, NULL, &env->sdl.rset[DTEXT].w\
 		, &env->sdl.rset[DTEXT].h);
 	env->sdl.rset[DTEXT].x = WIDTHS / 2 - (env->sdl.rset[DTEXT].w / 2);
-	if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9)
-		env->sdl.rset[DTEXT].x = (i == 2 || i == 5 || i == 8) ? \
+	if (i == 2 || i == 3 || i == 5 || i == 6 || i == 8 || i == 9 || i == 11 \
+			|| i == 12)
+		env->sdl.rset[DTEXT].x = (i == 2 || i == 5 || i == 8 || i == 11) ? \
 			env->sdl.rset[DTEXT].x - 20 : env->sdl.rset[DTEXT].x + 20;
 	env->sdl.rset[DTEXT].y = HEIGHT / 4 + env->set.pos;
 	SDL_FreeSurface(env->sdl.text);
 	SDL_RenderCopy(env->sdl.rend, env->sdl.tset[TTEXT], NULL, \
 		&env->sdl.rset[DTEXT]);
-	env->set.pos = (i % 3 == 0 || i == 1 || i == 4 || i == 7) ? \
+	env->set.pos = (i % 3 == 0 || i == 1 || i == 4 || i == 7 || i == 10) ? \
 		env->set.pos + 40 : env->set.pos;
-	env->set.pos = (i % 9 == 0) ? 0 : env->set.pos;
+	env->set.pos = (i % 12 == 0) ? 0 : env->set.pos;
 }
 
 static void	ft_eff_text2(t_env *env, int i, char **name)
@@ -37,6 +38,10 @@ static void	ft_eff_text2(t_env *env, int i, char **name)
 	(void)env;
 	*name = (i == 8) ? ft_strdup("+") : *name;
 	*name = (i == 9) ? ft_strdup("-") : *name;
+	*name = (i == 10) ? ft_freestrjoin("Transparency :  ", \
+		ft_itoa(env->set.obj[3]->refra_trans), 2) : *name;
+	*name = (i == 11) ? ft_strdup("+") : *name;
+	*name = (i == 12) ? ft_strdup("-") : *name;
 }
 
 static void	ft_eff_text(t_env *env)
@@ -46,7 +51,7 @@ static void	ft_eff_text(t_env *env)
 
 	i = 1;
 	name = NULL;
-	while (i <= 9)
+	while (i <= 12)
 	{
 		name = (i == 1) ? ft_freestrjoin("Increment :  ", \
 			ft_itoa(env->set.inc), 2) : name;
